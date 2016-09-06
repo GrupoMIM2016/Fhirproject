@@ -115,6 +115,6 @@ public class App
    
    //String encoded = p.encodeResourceToString(patient2);
    //System.out.println(encoded);
-   //
+   
     }
 }
