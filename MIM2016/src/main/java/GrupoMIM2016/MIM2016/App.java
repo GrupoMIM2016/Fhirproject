@@ -68,7 +68,7 @@ public class App
     	//Add a name
     	HumanNameDt name = patient2.addName();
     	name.setUse(NameUseEnum.OFFICIAL);
-    	name.addFamily("McCartney");
+    	name.addFamily(".McCartney");
     	name.addGiven("James");
     	name.addGiven("Paul");
     	name.addPrefix("Sir");
