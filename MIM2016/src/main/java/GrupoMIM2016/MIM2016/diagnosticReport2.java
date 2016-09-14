@@ -1,9 +1,12 @@
 package GrupoMIM2016.MIM2016;
 
+import java.util.List;
+
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.model.dstu2.composite.CodingDt;
 import ca.uhn.fhir.model.dstu2.composite.ResourceReferenceDt;
 import ca.uhn.fhir.model.dstu2.resource.DiagnosticReport;
+import ca.uhn.fhir.model.dstu2.resource.Observation;
 import ca.uhn.fhir.model.dstu2.valueset.DiagnosticReportStatusEnum;
 import ca.uhn.fhir.model.primitive.DateTimeDt;
 import ca.uhn.fhir.model.primitive.InstantDt;
@@ -50,9 +53,9 @@ public class diagnosticReport2  {
   	performer.setReference("Organization/63496");
   	
   	//Add result
-  	//ResourceReferenceDt result = dr1.getResult();
-  	
-  	//("Observation/5226");
+  	List<ResourceReferenceDt> resultList = dr1.getResult();
+  	resultList.add(new ResourceReferenceDt("Observation/14901"));
+  	resultList.add(new ResourceReferenceDt("Observation/14902"));
   	
   	//Add coclusion
   	dr1.setConclusion("Positive bloood culture");
