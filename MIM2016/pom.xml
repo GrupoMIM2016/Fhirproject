@@ -31,5 +31,15 @@
             <artifactId>hapi-fhir-structures-dstu2</artifactId>
             <version>1.4</version>
         </dependency> 
+        <dependency>
+   			<groupId>ca.uhn.hapi.fhir</groupId>
+   			<artifactId>hapi-fhir-structures-hl7org-dstu2</artifactId>
+   			<version>1.4</version>
+		</dependency>
+		<dependency>
+   			<groupId>ca.uhn.hapi.fhir</groupId>
+   			<artifactId>hapi-fhir-validation-resources-dstu2</artifactId>
+   			<version>1.4</version>
+		</dependency>
   </dependencies>
 </project>
