@@ -30,7 +30,7 @@ public class Observation2 {
   	validator.registerValidatorModule(instanceValidator);
   	
   	// Create a Client
-    String serverBaseUrl = "http://fhirtest.uhn.ca/baseDstu2";
+    String serverBaseUrl = "http://spark.furore.com/fhir";
     IGenericClient client = ctxDstu2.newRestfulGenericClient(serverBaseUrl);
   	
   	// Observation report resource
@@ -50,7 +50,7 @@ public class Observation2 {
   	ResourceReferenceDt subject = obs1.getSubject();
   	subject.setReference("Patient/109908");
   	
-  	//Add efective time
+  	//Add effective time
   	obs1.setEffective(new DateTimeDt("2016-05-05"));
   	
   	//Add issued

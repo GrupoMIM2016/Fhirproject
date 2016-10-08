@@ -21,7 +21,7 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
-       <dependency>
+     	<dependency>
             <groupId>ca.uhn.hapi.fhir</groupId>
             <artifactId>hapi-fhir-base</artifactId>
             <version>1.4</version>
@@ -40,6 +40,11 @@
    			<groupId>ca.uhn.hapi.fhir</groupId>
    			<artifactId>hapi-fhir-validation-resources-dstu2</artifactId>
    			<version>1.4</version>
+		</dependency>
+		<dependency>
+    		<groupId>org.slf4j</groupId>
+    		<artifactId>slf4j-nop</artifactId>
+    		<version>1.7.21</version>
 		</dependency>
   </dependencies>
 </project>
