@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GrupoMIM2016.MIM2016.MainController">
+   <children>
+      <TabPane prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: gray;" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="New">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: gray;">
+                     <children>
+                        <Label layoutX="29.0" layoutY="31.0" prefHeight="30.0" prefWidth="160.0" text="Test Identifier:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                        <Label layoutX="29.0" layoutY="79.0" prefHeight="30.0" prefWidth="160.0" text="Status:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                        <Label layoutX="29.0" layoutY="188.0" prefHeight="30.0" prefWidth="160.0" text="Sample Type">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                        <Label layoutX="29.0" layoutY="256.0" prefHeight="30.0" prefWidth="160.0" text="Patient:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                        <Button fx:id="Sendbtn" layoutX="385.0" layoutY="507.0" mnemonicParsing="false" onAction="#SendAction" prefHeight="39.0" prefWidth="100.0" style="-fx-background-color: green;" text="Send">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                        <RadioButton fx:id="RegisteredRdbtn" layoutX="221.0" layoutY="82.0" mnemonicParsing="false" onAction="#StatusListen" text="Registered">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="status" />
+                           </toggleGroup>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="PreliminaryRdbtn" layoutX="221.0" layoutY="115.0" mnemonicParsing="false" onAction="#StatusListen" text="Preliminary" toggleGroup="$status">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="FinalRdbtn" layoutX="221.0" layoutY="149.0" mnemonicParsing="false" onAction="#StatusListen" text="Final" toggleGroup="$status">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </RadioButton>
+                        <DatePicker fx:id="examDate" layoutX="305.0" layoutY="347.0" onAction="#DateListen" prefHeight="30.0" prefWidth="161.0" />
+                        <RadioButton fx:id="BloodRdbtn" layoutX="224.0" layoutY="191.0" mnemonicParsing="false" onAction="#TypeListen" text="Blood">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="type" />
+                           </toggleGroup>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="UrineRdbtn" layoutX="224.0" layoutY="222.0" mnemonicParsing="false" onAction="#TypeListen" text="Urine" toggleGroup="$type">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </RadioButton>
+                        <Label layoutX="180.0" layoutY="257.0" prefHeight="30.0" prefWidth="105.0" text="Id Type:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                        <Label layoutX="181.0" layoutY="297.0" prefHeight="30.0" prefWidth="105.0" text="Number">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                        <Label layoutX="28.0" layoutY="347.0" prefHeight="30.0" prefWidth="238.0" text="Sample Withdrawal Date:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                        <Label layoutX="29.0" layoutY="385.0" prefHeight="30.0" prefWidth="160.0" text="Result:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                        <Label layoutX="27.0" layoutY="459.0" prefHeight="30.0" prefWidth="160.0" text="Comments:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                        <RadioButton fx:id="NegativeRdbtn" layoutX="233.0" layoutY="421.0" mnemonicParsing="false" onAction="#ResultListen" text="Negative">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="result" />
+                           </toggleGroup>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="PositiveRdbtn" layoutX="233.0" layoutY="388.0" mnemonicParsing="false" onAction="#ResultListen" text="Positive" toggleGroup="$result">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </RadioButton>
+                        <TextField fx:id="testIdentifier" layoutX="221.0" layoutY="31.0" prefHeight="30.0" prefWidth="200.0" />
+                        <TextField fx:id="patientIdentifier" layoutX="305.0" layoutY="299.0" prefHeight="27.0" prefWidth="160.0" />
+                        <TextField fx:id="comments" layoutX="221.0" layoutY="459.0" prefHeight="30.0" prefWidth="200.0" />
+                        <ComboBox fx:id="IdType" layoutX="305.0" layoutY="258.0" onAction="#IdListen" prefHeight="27.0" prefWidth="160.0" promptText="Select Id Type" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Update">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
