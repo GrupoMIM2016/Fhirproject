@@ -146,7 +146,7 @@ public class MainController implements Initializable {
 			
 		}
 	}
-		
+
 	
 	// Imprimir resultados al apretar el botón Send
 	public void SendAction(ActionEvent event) {
