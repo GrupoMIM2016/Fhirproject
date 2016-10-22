@@ -20,6 +20,11 @@ public class MainController implements Initializable {
 	
 	private String selectedIdType;
 	private String selectedExamDate;
+	public String getSelectedIdType() {
+	return this.selectedIdType;}
+	public void setSelectedIdType(String selectedIdType) {
+		this.selectedIdType = selectedIdType;
+	}
 	private String selectedStatus;
 	private String selectedSampleType;
 	private String selectedResult;
@@ -32,18 +37,15 @@ public class MainController implements Initializable {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     LocalDate localDate = LocalDate.parse(date, formatter);
     return localDate;
-}
+	}
 	
 	//Seleccionar la fecha de toma de muestra
-	@FXML
-	public DatePicker examDate;
+	@FXML public DatePicker examDate;
 	
 	//Seleccionar el tipo de identificación
-	@FXML 
-	public ComboBox<String> IdType;
+	@FXML public ComboBox<String> IdType;
 	ObservableList<String> list = FXCollections.observableArrayList("RUT", "ACME", "Social Number");
 	
-	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		IdType.setItems(list);
 		examDate.setValue(NOW_LOCAL_DATE());
@@ -108,6 +110,8 @@ public class MainController implements Initializable {
 		this.selectedExamDate = examDate.getValue().toString();
 	}
 		
+	//---
+	
 	// Imprimir resultados al apretar el botón Send
 	public void SendAction(ActionEvent event) {
 		
