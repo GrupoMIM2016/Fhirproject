@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="500.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GrupoMIM2016.MIM2016.AntibiogramaController">
+   <children>
+      <Label fx:id="Ampicilin" layoutX="22.0" layoutY="139.0" prefHeight="25.0" prefWidth="72.0" text="Ampicilin" textAlignment="CENTER">
+         <font>
+            <Font name="Arial Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="Gentamicin" layoutX="22.0" layoutY="181.0" prefHeight="25.0" prefWidth="72.0" text="Gentamicin" textAlignment="CENTER">
+         <font>
+            <Font name="Arial Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="22.0" layoutY="217.0" prefHeight="25.0" prefWidth="72.0" text="Amikacin" textAlignment="CENTER">
+         <font>
+            <Font name="Arial Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="22.0" layoutY="252.0" prefHeight="25.0" prefWidth="72.0" text="Cefuroxime" textAlignment="CENTER">
+         <font>
+            <Font name="Arial Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="22.0" layoutY="289.0" prefHeight="25.0" prefWidth="72.0" text="Cefotaxime" textAlignment="CENTER">
+         <font>
+            <Font name="Arial Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="22.0" layoutY="321.0" prefHeight="25.0" prefWidth="72.0" text="Cefepime" textAlignment="CENTER">
+         <font>
+            <Font name="Arial Bold" size="13.0" />
+         </font>
+      </Label>
+      <RadioButton fx:id="A1" contentDisplay="CENTER" layoutX="137.0" layoutY="143.0" mnemonicParsing="false" onAction="#radioSelect" textAlignment="CENTER">
+         <toggleGroup>
+            <ToggleGroup fx:id="A" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="A2" contentDisplay="CENTER" layoutX="234.0" layoutY="143.0" mnemonicParsing="false" textAlignment="CENTER" toggleGroup="$A" />
+      <RadioButton fx:id="A3" contentDisplay="CENTER" layoutX="330.0" layoutY="143.0" mnemonicParsing="false" textAlignment="CENTER" toggleGroup="$A" />
+      <Label layoutX="121.0" layoutY="112.0" text="Sensitive">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="218.0" layoutY="112.0" text="Intermediate">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="314.0" layoutY="112.0" text="Resistant">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <RadioButton fx:id="C1" contentDisplay="CENTER" layoutX="138.0" layoutY="221.0" mnemonicParsing="false" textAlignment="CENTER">
+         <toggleGroup>
+            <ToggleGroup fx:id="C" />
+         </toggleGroup></RadioButton>
+      <RadioButton fx:id="C2" contentDisplay="CENTER" layoutX="235.0" layoutY="221.0" mnemonicParsing="false" textAlignment="CENTER" toggleGroup="$C" />
+      <RadioButton fx:id="C3" contentDisplay="CENTER" layoutX="331.0" layoutY="221.0" mnemonicParsing="false" textAlignment="CENTER" toggleGroup="$C" />
+      <RadioButton fx:id="B1" contentDisplay="CENTER" layoutX="138.0" layoutY="184.0" mnemonicParsing="false" textAlignment="CENTER">
+         <toggleGroup>
+            <ToggleGroup fx:id="B" />
+         </toggleGroup></RadioButton>
+      <RadioButton fx:id="B2" contentDisplay="CENTER" layoutX="235.0" layoutY="184.0" mnemonicParsing="false" textAlignment="CENTER" toggleGroup="$B" />
+      <RadioButton fx:id="B3" contentDisplay="CENTER" layoutX="331.0" layoutY="184.0" mnemonicParsing="false" textAlignment="CENTER" toggleGroup="$B" />
+      <RadioButton fx:id="C11" contentDisplay="CENTER" layoutX="138.0" layoutY="256.0" mnemonicParsing="false" textAlignment="CENTER">
+         <toggleGroup>
+            <ToggleGroup fx:id="D" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="C21" contentDisplay="CENTER" layoutX="235.0" layoutY="256.0" mnemonicParsing="false" textAlignment="CENTER" toggleGroup="$D" />
+      <RadioButton fx:id="C31" contentDisplay="CENTER" layoutX="331.0" layoutY="256.0" mnemonicParsing="false" textAlignment="CENTER" toggleGroup="$D" />
+      <RadioButton fx:id="C111" contentDisplay="CENTER" layoutX="138.0" layoutY="293.0" mnemonicParsing="false" textAlignment="CENTER">
+         <toggleGroup>
+            <ToggleGroup fx:id="E" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="C211" contentDisplay="CENTER" layoutX="235.0" layoutY="293.0" mnemonicParsing="false" textAlignment="CENTER" toggleGroup="$E" />
+      <RadioButton fx:id="C311" contentDisplay="CENTER" layoutX="331.0" layoutY="293.0" mnemonicParsing="false" textAlignment="CENTER" toggleGroup="$E" />
+      <RadioButton fx:id="C1111" contentDisplay="CENTER" layoutX="138.0" layoutY="325.0" mnemonicParsing="false" textAlignment="CENTER">
+         <toggleGroup>
+            <ToggleGroup fx:id="F" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="C2111" contentDisplay="CENTER" layoutX="235.0" layoutY="325.0" mnemonicParsing="false" textAlignment="CENTER" toggleGroup="$F" />
+      <RadioButton fx:id="C3111" contentDisplay="CENTER" layoutX="331.0" layoutY="325.0" mnemonicParsing="false" textAlignment="CENTER" toggleGroup="$F" />
+      <Label layoutX="163.0" layoutY="14.0" text="Sensitivity Study">
+         <font>
+            <Font name="Arial Black" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="22.0" layoutY="58.0" prefHeight="27.0" prefWidth="116.0" text="Microorganism:">
+         <font>
+            <Font name="Arial Black" size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="Microorganism" layoutX="160.0" layoutY="63.0" prefHeight="17.0" prefWidth="188.0" />
+   </children>
+</AnchorPane>

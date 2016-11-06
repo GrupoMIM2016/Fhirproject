@@ -11,13 +11,11 @@ public class GUI extends Application{
 			launch(args);
 		}
 		
-		@Override
 		public void start(Stage stage) throws Exception {
 			
 			Parent root = FXMLLoader.load(getClass().getResource("Fhir.fxml"));
-			
 			Scene scene = new Scene(root);
-			scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+			//scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 			stage.setScene(scene);
 			stage.setTitle("Culture Club");
 			stage.show();
