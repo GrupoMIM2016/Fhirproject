@@ -7,10 +7,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class GUI extends Application{
-		public static void main(String[] args) {
-			launch(args);
-		}
-		
 		public void start(Stage stage) throws Exception {
 			
 			Parent root = FXMLLoader.load(getClass().getResource("Fhir.fxml"));

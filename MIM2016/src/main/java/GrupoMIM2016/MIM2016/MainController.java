@@ -124,25 +124,19 @@ public class MainController implements Initializable {
 		this.selectedExamDate = examDate.getValue().toString();
 	}
 	
-	
-		
-		
 	public void selectedAntibiogram(ActionEvent event) throws IOException{
 		this.selectedAntibiogram = "";
 		
 		if (atbButton.isPickOnBounds()){
-			
 			Stage secondaryStage = new Stage();
 			Parent root = FXMLLoader.load(getClass().getResource("Antibiograma.fxml"));
 			Scene scene = new Scene(root,500,400);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			secondaryStage.setScene(scene);
 			secondaryStage.show();
-			
 		}
 	}
 
-	
 	// Imprimir resultados al apretar el botón Send
 	public void SendAction(ActionEvent event) {
 		

@@ -24,23 +24,19 @@ public class MainController2 {
 	public void login(ActionEvent event) throws Exception {
 		
 		if(txtUserName.getText().equals("user") && txtPassword.getText().equals("pass")){
-			lblStatus.setText("Login Successs");
+			lblStatus.setText("Login Successfull");
 			
 			((Node)(event.getSource())).getScene().getWindow().hide();
 			Parent root = FXMLLoader.load(getClass().getResource("Fhir.fxml"));
 			Stage stage = new Stage();
 			Scene scene2 = new Scene(root);
-			//scene2.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+			scene2.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 			stage.setScene(scene2);
 			stage.setTitle("Culture Club");
 			stage.show();
-			
-			
-			
 		
 		}else {
 			lblStatus.setText("Login Failed");
 		}
-	}
-		
+	}	
 }

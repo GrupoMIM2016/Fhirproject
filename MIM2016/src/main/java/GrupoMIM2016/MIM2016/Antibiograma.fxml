@@ -105,4 +105,3 @@
       </Label>
       <Label fx:id="Microorganism" layoutX="160.0" layoutY="63.0" prefHeight="17.0" prefWidth="188.0" />
    </children>
-</AnchorPane>

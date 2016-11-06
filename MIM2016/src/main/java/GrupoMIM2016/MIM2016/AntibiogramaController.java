@@ -10,6 +10,7 @@ import javafx.scene.control.RadioButton;
 
 public class AntibiogramaController implements Initializable{
 	
+	
 	@FXML Label Ampicilin;
 	@FXML Label Gentamicin;
 	@FXML Label Imipenem;
@@ -28,8 +29,8 @@ public class AntibiogramaController implements Initializable{
 	private String selectedAntib;
 
 	public void initialize(URL location, ResourceBundle resources) {
-}	
-	
+	}	
+
 	public void radioSelect(ActionEvent event) {
 		
 		this.selectedAntib = A1.getText();
@@ -37,9 +38,7 @@ public class AntibiogramaController implements Initializable{
 		if(A1.isSelected()){
 			selectedAntib += Sensitive.getText();
 		}
-		
+	
 	System.out.println("Ampiclin:" + this.selectedAntib);
-
-}
-
+	}
 }
