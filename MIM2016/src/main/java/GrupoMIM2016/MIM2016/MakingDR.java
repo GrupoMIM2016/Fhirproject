@@ -7,7 +7,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
 import org.hl7.fhir.instance.hapi.validation.FhirInstanceValidator;
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.model.api.Bundle;
@@ -27,7 +26,7 @@ import ca.uhn.fhir.validation.SingleValidationMessage;
 import ca.uhn.fhir.validation.ValidationResult;
 
 public class MakingDR {
-
+	
 	public static void main( String[] args ) throws IOException
   {
   	//Context for DSTU2
@@ -54,40 +53,57 @@ public class MakingDR {
     
     //Diagnostic report characteristics
     //Add Status
-    System.out.print("Status de la muestra: ");
-    String status = br.readLine();
-    if(status.equals("final")){
+    final ClassStatus status = new ClassStatus();
+    String Status = status.getStatus();
+    if(Status.equals("final")){
     	dr1.setStatus(DiagnosticReportStatusEnum.FINAL);
     	}
-    else if (status.equals("partial")) {
+    if (Status.equals("partial")) {
     	dr1.setStatus(DiagnosticReportStatusEnum.PARTIAL);
+			}
+    if (Status.equals("registered")) {
+    	dr1.setStatus(DiagnosticReportStatusEnum.REGISTERED);
 			};
     
     //Add Coding
     CodingDt code = dr1.getCode().addCoding();
-  	code.setSystem("http://hl7.org/fhir/ValueSet/report-codes");
+    final ClassSampleType sampleType = new ClassSampleType();
+  	if(sampleType.equals("blood")){
+    code.setSystem("http://loinc.org/");
   	code.setCode("600-7");
-  	code.setDisplay("Bacteria identified in Blood by Culture");
-  	
+  	code.setDisplay("Bacteria identified in Blood by Culture");}
+  	if(sampleType.equals("urine")){
+  	code.setSystem("http://loinc.org/");
+    code.setCode("630-4");
+    code.setDisplay("Bacteria identified in Urine by Culture");}	
+  		
   	//Add Subject
-  	System.out.print("Nombre del paciente: ");
-    String nombre = br.readLine();
+    //Buscar el tipo de identificacion
+  	final ClassIdType idType = new ClassIdType();
+    String IdType = idType.getIdType();
     
-    // Build a search and execute it
+    String web = "http://acme.org/MRNs";
+    if(IdType.equals("RUT")){
+    	 web= "wwww.regcivil.cl/rut";}
+    if(IdType.equals("ACME")){	
+    	 web = "http://acme.org/MRNs";}
+    
+    //Buscar el numero/codigo de identificacion
+    final ClassPatientId patientId = new ClassPatientId();
+    String PatientId = patientId.getpatientId();
+    
+		// Build a search and execute it
     Bundle response = client.search()
   	.forResource(Patient.class)
-  	.where(Patient.IDENTIFIER.exactly().systemAndIdentifier("wwww.regcivil.cl/rut", nombre))
+  	.where(Patient.IDENTIFIER.exactly().systemAndIdentifier(web, PatientId))
   	.execute();
-   
     IdDt firstResponseId = response.getEntries().get(0).getResource().getId();
-    
   	ResourceReferenceDt subject = dr1.getSubject();
   	subject.setReference(firstResponseId);
   	
   	//Add effective time
-  	System.out.print("Fecha de toma de muestra: ");
-    String fecha = br.readLine();
-  	dr1.setEffective(new DateTimeDt(fecha));
+  	final ClassTestDate testDate = new ClassTestDate();
+  	dr1.setEffective(new DateTimeDt(testDate.getTestDate()));
   	
   	//Add issued
   	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -105,10 +121,11 @@ public class MakingDR {
   	resultList.add(new ResourceReferenceDt("Observation/14901"));
   	resultList.add(new ResourceReferenceDt("Observation/14902"));
   	
-  	//Add conclusion
-    System.out.print("Culture conclusion: ");
-    String conclusion = br.readLine();
-  	dr1.setConclusion(conclusion);
+  	//Add comments
+  	final ClassComments comments = new ClassComments();
+    String Comments = comments.getComments();
+  	
+  	dr1.setConclusion(Comments);
   	
   	// Validate
   	ValidationResult result = validator.validateWithResult(dr1);

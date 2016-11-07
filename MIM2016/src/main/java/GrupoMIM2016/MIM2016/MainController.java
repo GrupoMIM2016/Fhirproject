@@ -24,35 +24,55 @@ import javafx.stage.Stage;
 
 public class MainController implements Initializable {
 	
-	private String selectedIdType;
-	private String selectedExamDate;
-	public String selectedStatus;
-	private String selectedSampleType;
-	private String selectedResult;
+	final ClassIdType idType = new ClassIdType();
+	final ClassTestDate testDate = new ClassTestDate();
+	final ClassStatus status = new ClassStatus();
+	final ClassSampleType sampleType = new ClassSampleType();
+	final ClassResult result = new ClassResult();
+	final ClassPatientId patientId = new ClassPatientId();
+	final ClassComments comments = new ClassComments();
+	
+	//private String selectedIdType;
+	//private String selectedExamDate;
+	//private String selectedStatus;
+	//private String selectedSampleType;
+	//private String selectedResult;
 	private String selectedTestId;
-	private String selectedPatientIdentifier;
-	private String selectedComments;
+	//private String selectedPatientIdentifier;
+	//private String selectedComments;
 	private String selectedAntibiogram;
 	
-	public static final LocalDate NOW_LOCAL_DATE (){
+	public static final LocalDate NowLocalDate (){
     String date = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     LocalDate localDate = LocalDate.parse(date, formatter);
     return localDate;
 }
 	
+	//Selecionar tipo de bacteria
+	@FXML
+	public ComboBox<String> GramST;
+	ObservableList<String> GramList = FXCollections.observableArrayList("Negative", "Positive");
+	@FXML public ComboBox<String> Microorganism;
+	ObservableList<String> MicroorganismList = FXCollections.observableArrayList("Cocci", "Baccillus (Rod)");
+	
+	//Botón para abrir ventana de antibiograma
+	@FXML public Button atbButton;
+	
 	//Seleccionar la fecha de toma de muestra
 	@FXML
-	public DatePicker examDate;
+	public DatePicker testDatePicker;
 	
 	//Seleccionar el tipo de identificación
 	@FXML 
 	public ComboBox<String> IdType;
-	ObservableList<String> list = FXCollections.observableArrayList("RUT", "ACME", "Social Number");
+	ObservableList<String> IdTypeList = FXCollections.observableArrayList("RUT", "ACME", "Social Number");
 	
 	public void initialize(URL location, ResourceBundle resources) {
-		IdType.setItems(list);
-		examDate.setValue(NOW_LOCAL_DATE());
+		IdType.setItems(IdTypeList);
+		GramST.setItems(GramList);
+		Microorganism.setItems(MicroorganismList);
+		testDatePicker.setValue(NowLocalDate());
 	}
 	
 	//Seleccionar el status de la muestra
@@ -61,20 +81,22 @@ public class MainController implements Initializable {
 	@FXML public RadioButton RegisteredRdbtn;
 	
 	//Escribir textos
-	@FXML public TextField testIdentifier;
-	@FXML public TextField patientIdentifier;
-	@FXML public TextField comments;
+	@FXML public TextField testIdentifierTxtField;
+	@FXML public TextField patientIdentifierTxtField;
+	@FXML public TextField commentsTxtField;
 	
 	public void StatusListen(ActionEvent event){
-		this.selectedStatus = "";
 		if (FinalRdbtn.isSelected()){
-			selectedStatus += FinalRdbtn.getText();
+			status.setStatus(FinalRdbtn.getText());
+			//selectedStatus += FinalRdbtn.getText();
 		}
 		if (PreliminaryRdbtn.isSelected()){
-			selectedStatus += PreliminaryRdbtn.getText();
+			status.setStatus(PreliminaryRdbtn.getText());
+			//selectedStatus += PreliminaryRdbtn.getText();
 		}
 		if (RegisteredRdbtn.isSelected()){
-			selectedStatus += RegisteredRdbtn.getText();
+			status.setStatus(RegisteredRdbtn.getText());
+			//selectedStatus += RegisteredRdbtn.getText();
 		}
 	}
 	
@@ -83,33 +105,31 @@ public class MainController implements Initializable {
 	@FXML public RadioButton UrineRdbtn;
 	
 	public void TypeListen(ActionEvent event){
-		this.selectedSampleType = "";
 		if (BloodRdbtn.isSelected()){
-			selectedSampleType += BloodRdbtn.getText();
+			sampleType.setSampleType(BloodRdbtn.getText());
+			//selectedSampleType += BloodRdbtn.getText();
 		}
 		if (UrineRdbtn.isSelected()){
-			selectedSampleType += UrineRdbtn.getText();
+			sampleType.setSampleType(UrineRdbtn.getText());
+			//selectedSampleType += UrineRdbtn.getText();
 		}
 	}
 	
 //Seleccionar el Resultado
 	@FXML public RadioButton PositiveRdbtn;
 	@FXML public RadioButton NegativeRdbtn;
-	@FXML public ComboBox GramST;
-	@FXML public ComboBox Microorganism;
-	@FXML public Button atbButton;
 	
 	public void ResultListen(ActionEvent event){
-		this.selectedResult = "";
 		if (PositiveRdbtn.isSelected()){
-			selectedResult += PositiveRdbtn.getText();
+			result.setResult(PositiveRdbtn.getText());
+			//selectedResult += PositiveRdbtn.getText();
 			GramST.setDisable(false);
 			Microorganism.setDisable(false);
 			atbButton.setDisable(false);
-			
 		}
 		if (NegativeRdbtn.isSelected()){
-			selectedResult += NegativeRdbtn.getText();
+			result.setResult(NegativeRdbtn.getText());
+			//selectedResult += NegativeRdbtn.getText();
 			GramST.setDisable(true);
 			Microorganism.setDisable(true);
 			atbButton.setDisable(true);
@@ -118,10 +138,12 @@ public class MainController implements Initializable {
 		
 	//Obtener resultados
 	public void IdListen(ActionEvent event) {
-		this.selectedIdType = IdType.getValue();
+		idType.setIdType(IdType.getValue());
+		//this.selectedIdType = IdType.getValue();
 	}
 	public void DateListen(ActionEvent event) {
-		this.selectedExamDate = examDate.getValue().toString();
+		testDate.setTestDate(testDatePicker.getValue().toString());
+		//this.selectedExamDate = testDatePicker.getValue().toString();
 	}
 	
 	public void selectedAntibiogram(ActionEvent event) throws IOException{
@@ -140,18 +162,29 @@ public class MainController implements Initializable {
 	// Imprimir resultados al apretar el botón Send
 	public void SendAction(ActionEvent event) {
 		
-		selectedExamDate = examDate.getValue().toString();
-		selectedTestId = testIdentifier.getText();
-		selectedPatientIdentifier = patientIdentifier.getText();
-		selectedComments = comments.getText();
+		testDate.setTestDate(testDatePicker.getValue().toString());
+		//selectedExamDate = testDatePicker.getValue().toString();
+		selectedTestId = testIdentifierTxtField.getText();
+		patientId.setPatientId(patientIdentifierTxtField.getText());
+		//selectedPatientIdentifier = patientIdentifier.getText();
+		comments.setComments(commentsTxtField.getText());
+		//selectedComments = comments.getTextTxtField();
 		
-		System.out.println("Test: " + this.selectedTestId);
-		System.out.println("Estado del informe: " + this.selectedStatus);
-		System.out.println(this.selectedSampleType);
-		System.out.println(this.selectedIdType);
-		System.out.println(this.selectedPatientIdentifier);
-		System.out.println(this.selectedExamDate);
-		System.out.println(this.selectedResult);
-		System.out.println(this.selectedComments);
+		System.out.println("Test code: " + this.selectedTestId);
+		
+		System.out.println("Report status: " + status.getStatus());
+		//System.out.println("Estado del informe: " + this.selectedStatus);
+		System.out.println("Sample: " + sampleType.getSampleType());
+		//System.out.println(this.selectedSampleType);
+		System.out.println("Type of Patient Id: " + idType.getIdType());
+		//System.out.println(this.selectedIdType);
+		System.out.println("Number of Patient Id: " + patientIdentifierTxtField.getText());
+		//System.out.println(this.selectedPatientIdentifier);
+		System.out.println("Date of Sample Withdrawal: " + testDate.getTestDate());
+		//System.out.println(this.selectedExamDate);
+		System.out.println("Test Result: " + result.getResult());
+		//System.out.println(this.selectedResult);
+		System.out.println("Comments: " + comments.getComments());
+		//System.out.println(this.selectedComments);
 	}
 }

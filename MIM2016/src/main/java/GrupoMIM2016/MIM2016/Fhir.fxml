@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -13,7 +18,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GrupoMIM2016.MIM2016.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GrupoMIM2016.MIM2016.MainController">
    <children>
       <TabPane prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: gray;" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -76,7 +81,7 @@
                               <Font size="18.0" />
                            </font>
                         </RadioButton>
-                        <DatePicker fx:id="examDate" layoutX="305.0" layoutY="347.0" onAction="#DateListen" prefHeight="30.0" prefWidth="161.0" />
+                        <DatePicker fx:id="testDatePicker" layoutX="305.0" layoutY="347.0" onAction="#DateListen" prefHeight="30.0" prefWidth="161.0" />
                         <RadioButton fx:id="BloodRdbtn" layoutX="224.0" layoutY="191.0" mnemonicParsing="false" onAction="#TypeListen" text="Blood">
                            <toggleGroup>
                               <ToggleGroup fx:id="type" />
@@ -143,9 +148,9 @@
                               <Font size="18.0" />
                            </font>
                         </RadioButton>
-                        <TextField fx:id="testIdentifier" layoutX="221.0" layoutY="31.0" prefHeight="30.0" prefWidth="200.0" />
-                        <TextField fx:id="patientIdentifier" layoutX="305.0" layoutY="299.0" prefHeight="27.0" prefWidth="160.0" />
-                        <TextField fx:id="comments" layoutX="124.0" layoutY="467.0" prefHeight="30.0" prefWidth="200.0" />
+                        <TextField fx:id="testIdentifierTxtField" layoutX="221.0" layoutY="31.0" prefHeight="30.0" prefWidth="200.0" />
+                        <TextField fx:id="patientIdentifierTxtField" layoutX="305.0" layoutY="299.0" prefHeight="27.0" prefWidth="160.0" />
+                        <TextField fx:id="commentsTxtField" layoutX="124.0" layoutY="467.0" prefHeight="30.0" prefWidth="200.0" />
                         <ComboBox fx:id="IdType" layoutX="305.0" layoutY="258.0" onAction="#IdListen" prefHeight="27.0" prefWidth="160.0" promptText="Select Id Type" />
                         <ComboBox fx:id="GramST" disable="true" layoutX="127.0" layoutY="424.0" prefHeight="27.0" prefWidth="125.0" promptText="Gram stain">
                            <opaqueInsets>
