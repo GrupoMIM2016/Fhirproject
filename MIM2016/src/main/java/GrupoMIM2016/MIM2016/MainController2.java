@@ -30,12 +30,12 @@ public class MainController2 {
 			Parent root = FXMLLoader.load(getClass().getResource("Fhir.fxml"));
 			Stage stage = new Stage();
 			Scene scene2 = new Scene(root);
-			scene2.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+			//scene2.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 			stage.setScene(scene2);
 			stage.setTitle("Culture Club");
 			stage.show();
-		
-		}else {
+		}
+		else {
 			lblStatus.setText("Login Failed");
 		}
 	}	

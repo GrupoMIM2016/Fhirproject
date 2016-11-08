@@ -24,22 +24,9 @@ import javafx.stage.Stage;
 
 public class MainController implements Initializable {
 	
-	final ClassIdType idType = new ClassIdType();
-	final ClassTestDate testDate = new ClassTestDate();
-	final ClassStatus status = new ClassStatus();
-	final ClassSampleType sampleType = new ClassSampleType();
-	final ClassResult result = new ClassResult();
-	final ClassPatientId patientId = new ClassPatientId();
-	final ClassComments comments = new ClassComments();
+	MakingDR mkdr=new MakingDR( );
 	
-	//private String selectedIdType;
-	//private String selectedExamDate;
-	//private String selectedStatus;
-	//private String selectedSampleType;
-	//private String selectedResult;
 	private String selectedTestId;
-	//private String selectedPatientIdentifier;
-	//private String selectedComments;
 	private String selectedAntibiogram;
 	
 	public static final LocalDate NowLocalDate (){
@@ -52,7 +39,7 @@ public class MainController implements Initializable {
 	//Selecionar tipo de bacteria
 	@FXML
 	public ComboBox<String> GramST;
-	ObservableList<String> GramList = FXCollections.observableArrayList("Negative", "Positive");
+	ObservableList<String> GramList = FXCollections.observableArrayList("Gram Negative", "Gram Positive");
 	@FXML public ComboBox<String> Microorganism;
 	ObservableList<String> MicroorganismList = FXCollections.observableArrayList("Cocci", "Baccillus (Rod)");
 	
@@ -66,7 +53,7 @@ public class MainController implements Initializable {
 	//Seleccionar el tipo de identificación
 	@FXML 
 	public ComboBox<String> IdType;
-	ObservableList<String> IdTypeList = FXCollections.observableArrayList("RUT", "ACME", "Social Number");
+	ObservableList<String> IdTypeList = FXCollections.observableArrayList("RUT", "Furore", "ACME");
 	
 	public void initialize(URL location, ResourceBundle resources) {
 		IdType.setItems(IdTypeList);
@@ -87,16 +74,13 @@ public class MainController implements Initializable {
 	
 	public void StatusListen(ActionEvent event){
 		if (FinalRdbtn.isSelected()){
-			status.setStatus(FinalRdbtn.getText());
-			//selectedStatus += FinalRdbtn.getText();
+			mkdr.setStatus(FinalRdbtn.getText());
 		}
 		if (PreliminaryRdbtn.isSelected()){
-			status.setStatus(PreliminaryRdbtn.getText());
-			//selectedStatus += PreliminaryRdbtn.getText();
+			mkdr.setStatus(PreliminaryRdbtn.getText());
 		}
 		if (RegisteredRdbtn.isSelected()){
-			status.setStatus(RegisteredRdbtn.getText());
-			//selectedStatus += RegisteredRdbtn.getText();
+			mkdr.setStatus(RegisteredRdbtn.getText());
 		}
 	}
 	
@@ -106,12 +90,11 @@ public class MainController implements Initializable {
 	
 	public void TypeListen(ActionEvent event){
 		if (BloodRdbtn.isSelected()){
-			sampleType.setSampleType(BloodRdbtn.getText());
-			//selectedSampleType += BloodRdbtn.getText();
+			mkdr.setSampleType(BloodRdbtn.getText());
 		}
 		if (UrineRdbtn.isSelected()){
-			sampleType.setSampleType(UrineRdbtn.getText());
-			//selectedSampleType += UrineRdbtn.getText();
+			mkdr.setSampleType(BloodRdbtn.getText());
+			mkdr.setSampleType(UrineRdbtn.getText());
 		}
 	}
 	
@@ -121,14 +104,13 @@ public class MainController implements Initializable {
 	
 	public void ResultListen(ActionEvent event){
 		if (PositiveRdbtn.isSelected()){
-			result.setResult(PositiveRdbtn.getText());
-			//selectedResult += PositiveRdbtn.getText();
+			mkdr.setResult(PositiveRdbtn.getText());
 			GramST.setDisable(false);
 			Microorganism.setDisable(false);
 			atbButton.setDisable(false);
 		}
 		if (NegativeRdbtn.isSelected()){
-			result.setResult(NegativeRdbtn.getText());
+			mkdr.setResult(NegativeRdbtn.getText());
 			//selectedResult += NegativeRdbtn.getText();
 			GramST.setDisable(true);
 			Microorganism.setDisable(true);
@@ -138,12 +120,10 @@ public class MainController implements Initializable {
 		
 	//Obtener resultados
 	public void IdListen(ActionEvent event) {
-		idType.setIdType(IdType.getValue());
-		//this.selectedIdType = IdType.getValue();
+		mkdr.setIdType(IdType.getValue());
 	}
 	public void DateListen(ActionEvent event) {
-		testDate.setTestDate(testDatePicker.getValue().toString());
-		//this.selectedExamDate = testDatePicker.getValue().toString();
+		mkdr.setTestDate(testDatePicker.getValue().toString());
 	}
 	
 	public void selectedAntibiogram(ActionEvent event) throws IOException{
@@ -161,30 +141,17 @@ public class MainController implements Initializable {
 
 	// Imprimir resultados al apretar el botón Send
 	public void SendAction(ActionEvent event) {
+
+		mkdr.setComments(commentsTxtField.getText());
+		mkdr.setPatientId(patientIdentifierTxtField.getText());
+		mkdr.setTestDate(testDatePicker.getValue().toString());
 		
-		testDate.setTestDate(testDatePicker.getValue().toString());
-		//selectedExamDate = testDatePicker.getValue().toString();
-		selectedTestId = testIdentifierTxtField.getText();
-		patientId.setPatientId(patientIdentifierTxtField.getText());
-		//selectedPatientIdentifier = patientIdentifier.getText();
-		comments.setComments(commentsTxtField.getText());
-		//selectedComments = comments.getTextTxtField();
+		try {
+			mkdr.main();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		System.out.println("Test code: " + this.selectedTestId);
-		
-		System.out.println("Report status: " + status.getStatus());
-		//System.out.println("Estado del informe: " + this.selectedStatus);
-		System.out.println("Sample: " + sampleType.getSampleType());
-		//System.out.println(this.selectedSampleType);
-		System.out.println("Type of Patient Id: " + idType.getIdType());
-		//System.out.println(this.selectedIdType);
-		System.out.println("Number of Patient Id: " + patientIdentifierTxtField.getText());
-		//System.out.println(this.selectedPatientIdentifier);
-		System.out.println("Date of Sample Withdrawal: " + testDate.getTestDate());
-		//System.out.println(this.selectedExamDate);
-		System.out.println("Test Result: " + result.getResult());
-		//System.out.println(this.selectedResult);
-		System.out.println("Comments: " + comments.getComments());
-		//System.out.println(this.selectedComments);
 	}
 }
