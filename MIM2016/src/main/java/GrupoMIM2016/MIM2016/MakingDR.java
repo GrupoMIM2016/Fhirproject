@@ -1,13 +1,12 @@
 package GrupoMIM2016.MIM2016;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import org.hl7.fhir.instance.hapi.validation.FhirInstanceValidator;
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.model.api.Bundle;
+import ca.uhn.fhir.model.api.ResourceMetadataKeyEnum;
 import ca.uhn.fhir.model.dstu2.composite.CodingDt;
 import ca.uhn.fhir.model.dstu2.composite.ResourceReferenceDt;
 import ca.uhn.fhir.model.dstu2.resource.DiagnosticReport;
@@ -19,9 +18,6 @@ import ca.uhn.fhir.model.primitive.InstantDt;
 import ca.uhn.fhir.rest.api.MethodOutcome;
 import ca.uhn.fhir.rest.client.IGenericClient;
 import ca.uhn.fhir.rest.client.interceptor.LoggingInterceptor;
-import ca.uhn.fhir.validation.FhirValidator;
-import ca.uhn.fhir.validation.SingleValidationMessage;
-import ca.uhn.fhir.validation.ValidationResult;
 
 public class MakingDR {
 	
@@ -95,51 +91,45 @@ public class MakingDR {
   	//Context for DSTU2
   	FhirContext ctxDstu2 = FhirContext.forDstu2();
   	
-  	/*
-  	// Create a FhirInstanceValidator and register it to a validator
-   	FhirValidator validator = ctxDstu2.newValidator();
-   	FhirInstanceValidator instanceValidator = new FhirInstanceValidator();
-   	validator.registerValidatorModule(instanceValidator);
-  	*/
-  	
   	//Create a Client
     String serverBaseUrl = "http://fhirtest.uhn.ca/baseDstu2";
-    IGenericClient client = ctxDstu2.newRestfulGenericClient(serverBaseUrl);
-    
-    /*
-    IGenericClient client2 = ctxDstu2.newRestfulGenericClient(serverBaseUrl);
+  	//String serverBaseUrl = "http://10.42.0.10:8080/fhir/baseDstu2";
+  	IGenericClient client = ctxDstu2.newRestfulGenericClient(serverBaseUrl);
   	
-    // Log requests and responses
- 		client2.registerInterceptor(new LoggingInterceptor(true));
-    */
+    //Log requests and responses
+ 		client.registerInterceptor(new LoggingInterceptor(true));
+    
     
   	// Diagnostic report resource
     DiagnosticReport dr1 = new DiagnosticReport();
     
     //Diagnostic report characteristics
+    
+    //Add MetaData
+    dr1.getResourceMetadata().put(ResourceMetadataKeyEnum.PROFILES, "http://hl7.no/fhir/StructureDefinition/LabPatientNorway");
+    
     //Add Status
-    if(status.equals("final")){
+    if(status.equals("Final")){
     	dr1.setStatus(DiagnosticReportStatusEnum.FINAL);
     	}
-    if (status.equals("partial")) {
+    if (status.equals("Partial")) {
     	dr1.setStatus(DiagnosticReportStatusEnum.PARTIAL);
 			}
-    if (status.equals("registered")) {
+    if (status.equals("Registered")) {
     	dr1.setStatus(DiagnosticReportStatusEnum.REGISTERED);
 			};
     
     //Add Coding
     CodingDt code = dr1.getCode().addCoding();
     
-  	if(sampleType.equals("blood")){
+  	if(sampleType.equals("Blood")){
     code.setSystem("http://loinc.org/");
   	code.setCode("600-7");
   	code.setDisplay("Bacteria identified in Blood by Culture");}
-  	if(sampleType.equals("urine")){
+  	if(sampleType.equals("Urine")){
   	code.setSystem("http://loinc.org/");
     code.setCode("630-4");
     code.setDisplay("Bacteria identified in Urine by Culture");}	
-  	
   	
   	//Add Subject    
     String web = "";
@@ -157,17 +147,16 @@ public class MakingDR {
   	ResourceReferenceDt subject = dr1.getSubject();
   	subject.setReference(firstResponseId);
   	
-  	
   	//Add effective time
   	dr1.setEffective(new DateTimeDt(testDate));
   	
   	//Add issued
-  	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	  Date date = new Date();
-	  DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-	  Date time = new Date();
-  	dr1.setIssued(new InstantDt((dateFormat.format(date))+"T"+(timeFormat.format(time))+".0-03:00"));
- 
+  	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+  	Date date = new Date();
+  	String fecha = dateFormat.format(date);
+  	String fecha2 = fecha.substring(0, fecha.length() - 2) + ":" + fecha.substring(fecha.length() - 2);
+  	dr1.setIssued(new InstantDt(fecha2));
+ 		
   	//Add performer
   	ResourceReferenceDt performer = dr1.getPerformer();
   	performer.setReference("Organization/63496");
@@ -179,19 +168,6 @@ public class MakingDR {
   	
   	//Add comments
   	dr1.setConclusion(comments);
-  	
-  	/*
-  	// Validate
-  	ValidationResult result = validator.validateWithResult(dr1);
-  	 
-  	// Do we have any errors or fatal errors?
-  	System.out.println(result.isSuccessful()); // false
-  	 
-  	// Show the issues
-  	for (SingleValidationMessage next : result.getMessages()) {
-  	   System.out.println(" Next issue " + next.getSeverity() + " - " + next.getLocationString() + " - " + next.getMessage());
-  	}  	
-  	*/
   	
  		//Use the client to store a new resource instance
  		MethodOutcome outcome = client.create().resource(dr1).execute();

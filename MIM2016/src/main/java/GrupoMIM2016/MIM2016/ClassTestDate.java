@@ -1,4 +1,4 @@
-package GrupoMIM2016.MIM2016;
+/*package GrupoMIM2016.MIM2016;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,3 +31,4 @@ public class ClassTestDate {
 			return TestDate;
 		}
 }
+*/

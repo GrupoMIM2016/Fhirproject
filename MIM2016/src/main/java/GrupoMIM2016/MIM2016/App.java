@@ -25,7 +25,7 @@ public class App
     	FhirContext ctxDstu2 = FhirContext.forDstu2();
     	
     	// Patient resource
-    	String msgString = "<Patient xmlns=\"http://hl7.org/fhir\">"
+    	/* String msgString = "<Patient xmlns=\"http://hl7.org/fhir\">"
     	  + "<image><contentType value=\"application/dicom\" /><url value=\"http://10.1.2.3:1000/wado?requestType=WADO&amp;wado_details...\" /><hash value=\"EQH/..AgME\" /></image>"
     	  + "<text><status value=\"generated\" /><div xmlns=\"http://www.w3.org/1999/xhtml\">John Cardinal</div></text>"
     	  + "<identifier><system value=\"http://orionhealth.com/mrn\" /><value value=\"1234556\" /></identifier>"
@@ -33,9 +33,10 @@ public class App
     	  + "<gender><coding><system value=\"http://hl7.org/fhir/v3/AdministrativeGender\" /><code value=\"M\" /></coding></gender>"
     	  + "<address><use value=\"home\" /><line value=\"Av Colón 4362\" /></address><active value=\"true\" />"
     	  + "</Patient>";
+    	*/
     	
     	//Create a Client
-      String serverBaseUrl = "http://spark.furore.com/fhir";
+      String serverBaseUrl = "http://10.42.0.10:8080/fhir/baseDstu2";
       IGenericClient client = ctxDstu2.newRestfulGenericClient(serverBaseUrl);
     	 
     	// The hapi context object is used to create a new XML parser
@@ -44,6 +45,7 @@ public class App
     	//IParser parser = ctxDstu2.newXmlParser();
     	//Patient patient = parser.parseResource(Patient.class, msgString);
     	 
+      /*
       // Use the client to read back the new instance using the
   		// ID we retrieved from the read
   		Patient patient = client.read(Patient.class, "spark6451");
@@ -58,12 +60,13 @@ public class App
     	System.out.println(familyName);
     	System.out.println(addres);
     	System.out.println("Found ID:    " + patient.getId());
+    	*/
     	
     	Patient patient2 = new Patient();
     	//Add an MRN (a patient identifier)
     	IdentifierDt id = patient2.addIdentifier();
-    	id.setSystem("wwww.regcivil.cl/rut");
-    	id.setValue("1234556-K");
+    	id.setSystem("http://fhir.furore.com/NationalPatientID");
+    	id.setValue("1234556");
     
     	//Add a name
     	HumanNameDt name = patient2.addName();

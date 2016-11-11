@@ -1,10 +1,18 @@
 package GrupoMIM2016.MIM2016;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.hl7.fhir.instance.hapi.validation.FhirInstanceValidator;
 
 import ca.uhn.fhir.context.FhirContext;
+import ca.uhn.fhir.model.api.ResourceMetadataKeyEnum;
+import ca.uhn.fhir.model.base.resource.ResourceMetadataMap;
 import ca.uhn.fhir.model.dstu2.composite.CodingDt;
 import ca.uhn.fhir.model.dstu2.composite.ResourceReferenceDt;
 import ca.uhn.fhir.model.dstu2.resource.DiagnosticReport;
@@ -37,6 +45,10 @@ public class diagnosticReport2  {
     DiagnosticReport dr1 = new DiagnosticReport();
     
     //Diagnostic report characteristics
+    
+    //Add MetaData
+    dr1.getResourceMetadata().put(ResourceMetadataKeyEnum.PROFILES, "http://hl7.no/fhir/StructureDefinition/LabPatientNorway");
+    
     //Add Status
     dr1.setStatus(DiagnosticReportStatusEnum.PARTIAL);
     
@@ -54,7 +66,11 @@ public class diagnosticReport2  {
   	dr1.setEffective(new DateTimeDt("2016-05-05"));
   	
   	//Add issued
-  	dr1.setIssued(new InstantDt("2016-05-05T16:41:32.6-03:00"));
+  	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+  	Date date = new Date();
+  	String fecha = dateFormat.format(date);
+  	String fecha2 = fecha.substring(0, fecha.length() - 2) + ":" + fecha.substring(fecha.length() - 2);
+  	dr1.setIssued(new InstantDt(fecha2));
     
   	//Add performer
   	ResourceReferenceDt performer = dr1.getPerformer();

@@ -1,9 +1,7 @@
 package GrupoMIM2016.MIM2016;
 
 import java.util.List;
-
 import org.hl7.fhir.instance.hapi.validation.FhirInstanceValidator;
-
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.model.dstu2.composite.CodingDt;
 import ca.uhn.fhir.model.dstu2.composite.ResourceReferenceDt;
@@ -48,7 +46,7 @@ public class Observation2 {
     
   	//Add Subject
   	ResourceReferenceDt subject = obs1.getSubject();
-  	subject.setReference("Patient/109908");
+  	subject.setReference("Patient/spark16618");
   	
   	//Add effective time
   	obs1.setEffective(new DateTimeDt("2016-05-05"));

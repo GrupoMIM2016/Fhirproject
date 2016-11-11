@@ -8,7 +8,7 @@ public class ClassIdType {
 
 	public final String getIdType() {
 		if (IdType != null)
-			return IdType.get();
+			return this.IdType.get();
 			return "ACME";
 	}
 
