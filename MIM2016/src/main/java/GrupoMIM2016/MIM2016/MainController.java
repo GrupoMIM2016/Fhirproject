@@ -24,7 +24,7 @@ import javafx.stage.Stage;
 
 public class MainController implements Initializable {
 	
-	MakingDR mkdr=new MakingDR( );
+	MakingTransaction mktr = new MakingTransaction( );
 	
 	private String selectedTestId;
 	private String selectedAntibiogram;
@@ -37,8 +37,7 @@ public class MainController implements Initializable {
 }
 	
 	//Selecionar tipo de bacteria
-	@FXML
-	public ComboBox<String> GramST;
+	@FXML public ComboBox<String> GramST;
 	ObservableList<String> GramList = FXCollections.observableArrayList("Gram Negative", "Gram Positive");
 	@FXML public ComboBox<String> Microorganism;
 	ObservableList<String> MicroorganismList = FXCollections.observableArrayList("Cocci", "Baccillus (Rod)");
@@ -51,8 +50,7 @@ public class MainController implements Initializable {
 	public DatePicker testDatePicker;
 	
 	//Seleccionar el tipo de identificación
-	@FXML 
-	public ComboBox<String> IdType;
+	@FXML public ComboBox<String> IdType;
 	ObservableList<String> IdTypeList = FXCollections.observableArrayList("RUT", "Furore", "ACME");
 	
 	public void initialize(URL location, ResourceBundle resources) {
@@ -74,13 +72,13 @@ public class MainController implements Initializable {
 	
 	public void StatusListen(ActionEvent event){
 		if (FinalRdbtn.isSelected()){
-			mkdr.setStatus(FinalRdbtn.getText());
+			mktr.setStatus(FinalRdbtn.getText());
 		}
 		if (PreliminaryRdbtn.isSelected()){
-			mkdr.setStatus(PreliminaryRdbtn.getText());
+			mktr.setStatus(PreliminaryRdbtn.getText());
 		}
 		if (RegisteredRdbtn.isSelected()){
-			mkdr.setStatus(RegisteredRdbtn.getText());
+			mktr.setStatus(RegisteredRdbtn.getText());
 		}
 	}
 	
@@ -90,11 +88,11 @@ public class MainController implements Initializable {
 	
 	public void TypeListen(ActionEvent event){
 		if (BloodRdbtn.isSelected()){
-			mkdr.setSampleType(BloodRdbtn.getText());
+			mktr.setSampleType(BloodRdbtn.getText());
 		}
 		if (UrineRdbtn.isSelected()){
-			mkdr.setSampleType(BloodRdbtn.getText());
-			mkdr.setSampleType(UrineRdbtn.getText());
+			mktr.setSampleType(BloodRdbtn.getText());
+			mktr.setSampleType(UrineRdbtn.getText());
 		}
 	}
 	
@@ -104,13 +102,13 @@ public class MainController implements Initializable {
 	
 	public void ResultListen(ActionEvent event){
 		if (PositiveRdbtn.isSelected()){
-			mkdr.setResult(PositiveRdbtn.getText());
+			mktr.setResult(PositiveRdbtn.getText());
 			GramST.setDisable(false);
 			Microorganism.setDisable(false);
 			atbButton.setDisable(false);
 		}
 		if (NegativeRdbtn.isSelected()){
-			mkdr.setResult(NegativeRdbtn.getText());
+			mktr.setResult(NegativeRdbtn.getText());
 			//selectedResult += NegativeRdbtn.getText();
 			GramST.setDisable(true);
 			Microorganism.setDisable(true);
@@ -120,14 +118,13 @@ public class MainController implements Initializable {
 		
 	//Obtener resultados
 	public void IdListen(ActionEvent event) {
-		mkdr.setIdType(IdType.getValue());
+		mktr.setIdType(IdType.getValue());
 	}
 	public void DateListen(ActionEvent event) {
-		mkdr.setTestDate(testDatePicker.getValue().toString());
+		mktr.setTestDate(testDatePicker.getValue().toString());
 	}
 	
 	public void selectedAntibiogram(ActionEvent event) throws IOException{
-		this.selectedAntibiogram = "";
 		
 		if (atbButton.isPickOnBounds()){
 			Stage secondaryStage = new Stage();
@@ -142,16 +139,16 @@ public class MainController implements Initializable {
 	// Imprimir resultados al apretar el botón Send
 	public void SendAction(ActionEvent event) {
 
-		mkdr.setComments(commentsTxtField.getText());
-		mkdr.setPatientId(patientIdentifierTxtField.getText());
-		mkdr.setTestDate(testDatePicker.getValue().toString());
+		mktr.setComments(commentsTxtField.getText());
+		mktr.setPatientId(patientIdentifierTxtField.getText());
+		mktr.setTestId(testIdentifierTxtField.getText());
+		mktr.setTestDate(testDatePicker.getValue().toString());
 		
 		try {
-			mkdr.main();
+			mktr.main();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 }

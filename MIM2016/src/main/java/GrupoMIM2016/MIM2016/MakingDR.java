@@ -20,7 +20,7 @@ import ca.uhn.fhir.rest.client.IGenericClient;
 import ca.uhn.fhir.rest.client.interceptor.LoggingInterceptor;
 
 public class MakingDR {
-	
+
 	String comments = null;
 	String idType = null;
 	String patientId = null;
@@ -28,6 +28,7 @@ public class MakingDR {
 	String sampleType = null;
 	String status = null;
 	String testDate = null;
+	String testId = null;
 	
 	public String getIdType() {
 	return this.idType;}
@@ -77,9 +78,16 @@ public class MakingDR {
 	public void setTestDate(String testDate) {
 		this.testDate = testDate;
 	}
-
+	
+	public String getTestId() {
+	return this.testId;}
+	
+	public void setTestId(String testId) {
+		this.testId = testId;
+	}
+	
 	public void main( ) throws IOException{
-		System.out.println("Test code: ");
+		System.out.println("Test code: " + testId);
 		System.out.println("Report status: " + status);
 		System.out.println("Sample: " + sampleType);
 		System.out.println("Type of Patient Id: " + idType);
@@ -87,7 +95,7 @@ public class MakingDR {
 		System.out.println("Date of Sample Withdrawal: " + testDate);
 		System.out.println("Test Result: " + result);
 		System.out.println("Comments: " + comments);
-				
+		
   	//Context for DSTU2
   	FhirContext ctxDstu2 = FhirContext.forDstu2();
   	
