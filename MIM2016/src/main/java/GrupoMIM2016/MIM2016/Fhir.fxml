@@ -152,12 +152,12 @@
                         <TextField fx:id="patientIdentifierTxtField" layoutX="305.0" layoutY="299.0" prefHeight="27.0" prefWidth="160.0" />
                         <TextField fx:id="commentsTxtField" layoutX="126.0" layoutY="467.0" prefHeight="30.0" prefWidth="338.0" />
                         <ComboBox fx:id="IdType" layoutX="305.0" layoutY="258.0" onAction="#IdListen" prefHeight="27.0" prefWidth="160.0" promptText="Select Id Type" />
-                        <ComboBox fx:id="GramST" disable="true" layoutX="127.0" layoutY="424.0" prefHeight="27.0" prefWidth="125.0" promptText="Gram stain">
+                        <ComboBox fx:id="GramST" disable="true" layoutX="127.0" layoutY="424.0" onAction="#gramStainListen" prefHeight="27.0" prefWidth="125.0" promptText="Gram stain">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
                         </ComboBox>
-                        <ComboBox fx:id="Microorganism" disable="true" layoutX="257.0" layoutY="424.0" prefHeight="27.0" prefWidth="145.0" promptText="Microorganism" />
+                        <ComboBox fx:id="Morpho" disable="true" layoutX="257.0" layoutY="424.0" onAction="#morphoListen" prefHeight="27.0" prefWidth="145.0" promptText="Morphology" />
                         <Button fx:id="atbButton" disable="true" layoutX="421.0" layoutY="424.0" mnemonicParsing="false" onAction="#selectedAntibiogram" prefHeight="27.0" prefWidth="59.0" text="ATB" />
                      </children>
                   </AnchorPane>

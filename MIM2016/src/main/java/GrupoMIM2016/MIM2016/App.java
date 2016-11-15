@@ -36,7 +36,7 @@ public class App
     	*/
     	
     	//Create a Client
-      String serverBaseUrl = "http://10.42.0.10:8080/fhir/baseDstu2";
+      String serverBaseUrl = "http://172.31.5.42:8080/baseDstu2";
       IGenericClient client = ctxDstu2.newRestfulGenericClient(serverBaseUrl);
     	 
     	// The hapi context object is used to create a new XML parser
@@ -65,8 +65,8 @@ public class App
     	Patient patient2 = new Patient();
     	//Add an MRN (a patient identifier)
     	IdentifierDt id = patient2.addIdentifier();
-    	id.setSystem("http://fhir.furore.com/NationalPatientID");
-    	id.setValue("1234556");
+    	id.setSystem("http://furore.com/NamingSystem/OrganizationID");
+    	id.setValue("123");
     
     	//Add a name
     	HumanNameDt name = patient2.addName();

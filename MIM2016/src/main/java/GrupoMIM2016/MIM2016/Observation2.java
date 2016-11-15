@@ -4,7 +4,6 @@ import java.util.List;
 import org.hl7.fhir.instance.hapi.validation.FhirInstanceValidator;
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.model.dstu2.composite.CodingDt;
-import ca.uhn.fhir.model.dstu2.composite.IdentifierDt;
 import ca.uhn.fhir.model.dstu2.composite.ResourceReferenceDt;
 import ca.uhn.fhir.model.dstu2.resource.Observation;
 import ca.uhn.fhir.model.dstu2.valueset.ObservationStatusEnum;

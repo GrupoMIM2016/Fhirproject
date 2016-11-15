@@ -26,9 +26,6 @@ public class MainController implements Initializable {
 	
 	MakingTransaction mktr = new MakingTransaction( );
 	
-	private String selectedTestId;
-	private String selectedAntibiogram;
-	
 	public static final LocalDate NowLocalDate (){
     String date = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -39,8 +36,8 @@ public class MainController implements Initializable {
 	//Selecionar tipo de bacteria
 	@FXML public ComboBox<String> GramST;
 	ObservableList<String> GramList = FXCollections.observableArrayList("Gram Negative", "Gram Positive");
-	@FXML public ComboBox<String> Microorganism;
-	ObservableList<String> MicroorganismList = FXCollections.observableArrayList("Cocci", "Baccillus (Rod)");
+	@FXML public ComboBox<String> Morpho;
+	ObservableList<String> MorphoList = FXCollections.observableArrayList("Coccus", "Baccillus (Rod)");
 	
 	//Botón para abrir ventana de antibiograma
 	@FXML public Button atbButton;
@@ -56,7 +53,7 @@ public class MainController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		IdType.setItems(IdTypeList);
 		GramST.setItems(GramList);
-		Microorganism.setItems(MicroorganismList);
+		Morpho.setItems(MorphoList);
 		testDatePicker.setValue(NowLocalDate());
 	}
 	
@@ -104,14 +101,14 @@ public class MainController implements Initializable {
 		if (PositiveRdbtn.isSelected()){
 			mktr.setResult(PositiveRdbtn.getText());
 			GramST.setDisable(false);
-			Microorganism.setDisable(false);
+			Morpho.setDisable(false);
 			atbButton.setDisable(false);
 		}
 		if (NegativeRdbtn.isSelected()){
 			mktr.setResult(NegativeRdbtn.getText());
 			//selectedResult += NegativeRdbtn.getText();
 			GramST.setDisable(true);
-			Microorganism.setDisable(true);
+			Morpho.setDisable(true);
 			atbButton.setDisable(true);
 		}
 	}
@@ -122,6 +119,12 @@ public class MainController implements Initializable {
 	}
 	public void DateListen(ActionEvent event) {
 		mktr.setTestDate(testDatePicker.getValue().toString());
+	}
+	public void gramStainListen(ActionEvent event) {
+		mktr.setgramStain(GramST.getValue());
+	}
+	public void morphoListen(ActionEvent event) {
+		mktr.setmorpho(Morpho.getValue());
 	}
 	
 	public void selectedAntibiogram(ActionEvent event) throws IOException{
