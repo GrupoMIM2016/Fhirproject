@@ -66,6 +66,8 @@ public class MainController implements Initializable {
 	@FXML public TextField testIdentifierTxtField;
 	@FXML public TextField patientIdentifierTxtField;
 	@FXML public TextField commentsTxtField;
+	@FXML public TextField nameTxtField;
+	@FXML public TextField lastNameTxtField;
 	
 	public void StatusListen(ActionEvent event){
 		if (FinalRdbtn.isSelected()){
@@ -106,7 +108,6 @@ public class MainController implements Initializable {
 		}
 		if (NegativeRdbtn.isSelected()){
 			mktr.setResult(NegativeRdbtn.getText());
-			//selectedResult += NegativeRdbtn.getText();
 			GramST.setDisable(true);
 			Morpho.setDisable(true);
 			atbButton.setDisable(true);
@@ -145,6 +146,8 @@ public class MainController implements Initializable {
 		mktr.setComments(commentsTxtField.getText());
 		mktr.setPatientId(patientIdentifierTxtField.getText());
 		mktr.setTestId(testIdentifierTxtField.getText());
+		mktr.setname(nameTxtField.getText());
+		mktr.setlastName(lastNameTxtField.getText());
 		mktr.setTestDate(testDatePicker.getValue().toString());
 		
 		try {
