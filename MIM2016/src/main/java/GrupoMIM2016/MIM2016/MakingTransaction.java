@@ -40,6 +40,8 @@ public class MakingTransaction {
 	String testId = null;
 	String gramStain = null;
 	String morpho = null;
+	String name = null;
+	String lastName = null;
 	
 	public String getIdType() {
 	return this.idType;}
@@ -105,11 +107,26 @@ public class MakingTransaction {
 	}
 	
 	public String getmorpho() {
-	return this.morpho;}
+		return this.morpho;}
 
-	public void setmorpho(String morpho) {
-		this.morpho = morpho;
+		public void setmorpho(String morpho) {
+			this.morpho = morpho;
+		}
+	
+	public String getlastName() {
+	return this.lastName;}
+
+	public void setlastName(String lastName) {
+		this.lastName = lastName;
 	}
+	
+	public String getname() {
+		return this.name;}
+
+		public void setname(String name) {
+			this.name = name;
+		}
+	
 
 	public void main( ) throws IOException{
 		
