@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
@@ -113,19 +114,41 @@ public class MainController implements Initializable {
 			atbButton.setDisable(true);
 		}
 	}
+	
+//Seleccionar el Germen específico
+	@FXML public CheckBox pAeruginosa;
+	@FXML public CheckBox sAureus;
+	@FXML public CheckBox nMeningitidis;
+	@FXML public CheckBox cDifficile;
+	@FXML public CheckBox eColi;
+	
+	public void gramStainListen(ActionEvent event) {
+		mktr.setgramStain(GramST.getValue());
+		if (GramST.getValue().equals("Gram Positive")){
+			pAeruginosa.setDisable(true);
+			nMeningitidis.setDisable(true);
+			eColi.setDisable(true);}
+		if (GramST.getValue().equals("Gram Negative")){
+			sAureus.setDisable(true);
+			cDifficile.setDisable(true);}
+	}
+	public void morphoListen(ActionEvent event) {
+		mktr.setmorpho(Morpho.getValue());
+		if (GramST.getValue().equals("Coccus")){
+			pAeruginosa.setDisable(true);
+			cDifficile.setDisable(true);
+			eColi.setDisable(true);}
+		if (GramST.getValue().equals("Baccillus (Rod)")){
+			sAureus.setDisable(true);
+			nMeningitidis.setDisable(true);}
+	}
 		
-	//Obtener resultados
+	//Obtener valores de tipo de Id y Date
 	public void IdListen(ActionEvent event) {
 		mktr.setIdType(IdType.getValue());
 	}
 	public void DateListen(ActionEvent event) {
 		mktr.setTestDate(testDatePicker.getValue().toString());
-	}
-	public void gramStainListen(ActionEvent event) {
-		mktr.setgramStain(GramST.getValue());
-	}
-	public void morphoListen(ActionEvent event) {
-		mktr.setmorpho(Morpho.getValue());
 	}
 	
 	public void selectedAntibiogram(ActionEvent event) throws IOException{
