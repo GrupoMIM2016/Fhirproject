@@ -51,7 +51,7 @@ public class MainController implements Initializable {
 			Morpho.setDisable(true);
 			atbButton.setDisable(true);
 			MOidentification.setDisable(true);
-		}
+		}	
 	}
 	
 	//Selecionar tipo de bacteria
@@ -72,28 +72,42 @@ public class MainController implements Initializable {
 	
 	//Seleccionar el microorganismo identificado
 	@FXML public ComboBox<String> MOidentification;
-	ObservableList<String> MOList = FXCollections.observableArrayList("");
+	ObservableList<String> MOList = FXCollections.observableArrayList("Pseudomonas aeruginosa", "Escherichia coli", "Neisseria meningitidis", "Clostridium difficile", "Staphylococcus aureus");
 	
 	//Determinar tincion Gram y morfologia
 	public void gramStainListen(ActionEvent event) {
 		mktr.setgramStain(GramST.getValue());
-		if((GramST.getValue().equals("Gram Negative")) && (Morpho.equals("Baccillus (Rod)"))){
+		MOList.clear();
+		if (GramST.getValue() != null && GramST.getValue().equals("Gram Positive") && Morpho.getValue() != null && Morpho.getValue().equals("Coccus")) {
+			MOList.add("Staphylococcus aureus");
+		}
+		if (GramST.getValue() != null && GramST.getValue().equals("Gram Positive") && Morpho.getValue() != null && Morpho.getValue().equals("Baccillus (Rod)")) {
+			MOList.add("Clostridium difficile");
+		}
+		if (GramST.getValue() != null && GramST.getValue().equals("Gram Negative") && Morpho.getValue() != null && Morpho.getValue().equals("Coccus")) {
+			MOList.add("Neisseria meningitidis");
+		}
+		if (GramST.getValue() != null && GramST.getValue().equals("Gram Negative") && Morpho.getValue() != null && Morpho.getValue().equals("Baccillus (Rod)")) {
 			MOList.add("Pseudomonas aeruginosa");
 			MOList.add("Escherichia coli");
-			while(MOList.remove("Neisseria meningitidis")) {}
-			while(MOList.remove("")) {}
-			while(MOList.remove("Clostridium difficile")) {}
-			while(MOList.remove("Staphylococcus aureus")) {}
 		}
 	}
 	
 	public void morphoListen(ActionEvent event) {
 		mktr.setmorpho(Morpho.getValue());
-	}
-	
-	public void CreateMOList(ActionEvent event){
-		if ((GramST.getValue().equals("Gram Negative")) && (Morpho.equals("Baccillus (Rod)"))){
-			
+		MOList.clear();
+		if (GramST.getValue() != null && GramST.getValue().equals("Gram Positive") && Morpho.getValue() != null && Morpho.getValue().equals("Coccus")) {
+			MOList.add("Staphylococcus aureus");
+		}
+		if (GramST.getValue() != null && GramST.getValue().equals("Gram Positive") && Morpho.getValue() != null && Morpho.getValue().equals("Baccillus (Rod)")) {
+			MOList.add("Clostridium difficile");
+		}
+		if (GramST.getValue() != null && GramST.getValue().equals("Gram Negative") && Morpho.getValue() != null && Morpho.getValue().equals("Coccus")) {
+			MOList.add("Neisseria meningitidis");
+		}
+		if (GramST.getValue() != null && GramST.getValue().equals("Gram Negative") && Morpho.getValue() != null && Morpho.getValue().equals("Baccillus (Rod)")) {
+			MOList.add("Pseudomonas aeruginosa");
+			MOList.add("Escherichia coli");
 		}
 	}
 	
@@ -162,6 +176,9 @@ public class MainController implements Initializable {
 	//Obtener resultados
 	public void IdListen(ActionEvent event) {
 		mktr.setIdType(IdType.getValue());
+	}
+	public void MOListen(ActionEvent event) {
+		mktr.setMOidentification(MOidentification.getValue());
 	}
 	public void DateListen(ActionEvent event) {
 		mktr.setTestDate(testDatePicker.getValue().toString());

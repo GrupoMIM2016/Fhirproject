@@ -110,6 +110,9 @@ public class MakingTransaction {
 		this.gramStain = gramStain;
 	}
 	
+	public String getMOidentification() {
+		return this.MOidentification;}
+	
 	public void setMOidentification(String MOidentification) {
 		this.MOidentification = MOidentification;
 	}
@@ -117,7 +120,7 @@ public class MakingTransaction {
 	public String getmorpho() {
 		return this.morpho;}
 
-		public void setmorpho(String morpho) {
+	public void setmorpho(String morpho) {
 			this.morpho = morpho;
 		}
 	
@@ -159,6 +162,8 @@ public class MakingTransaction {
 		System.out.println("Morphology: " + morpho);
 		System.out.println("Microorganism identification: " + MOidentification);
 		*/
+		
+		System.out.println("Microorganism identification: " + MOidentification);
 		
 	Organization org1 = new Organization();
 	IdentifierDt orgId = org1.addIdentifier();
