@@ -39,6 +39,7 @@ public class MakingTransaction {
 	String testDate = null;
 	String testId = null;
 	String gramStain = null;
+	String MOidentification = null;
 	String morpho = null;
 	String name = null;
 	String lastName = null;
@@ -106,6 +107,10 @@ public class MakingTransaction {
 		this.gramStain = gramStain;
 	}
 	
+	public void setMOidentification(String MOidentification) {
+		this.MOidentification = MOidentification;
+	}
+	
 	public String getmorpho() {
 		return this.morpho;}
 
@@ -140,9 +145,10 @@ public class MakingTransaction {
 		System.out.println("Comments: " + comments);
 		System.out.println("Gram Stain: " + gramStain);
 		System.out.println("Morphology: " + morpho);
+		System.out.println("Microorganism identification: " + MOidentification);
 		
-		Organization org1 = new Organization();
-		IdentifierDt orgId = org1.addIdentifier();
+	Organization org1 = new Organization();
+	IdentifierDt orgId = org1.addIdentifier();
   	orgId.setSystem("http://fhir.furore.com/NamingSystem/NationalOrganizationIdentifier");
   	orgId.setValue("123");
   	org1.setName("Culture Club");
@@ -162,20 +168,22 @@ public class MakingTransaction {
   	name.addFamily("McCartney");
   	name.addGiven("Paul");
 		
-		//Context for DSTU2
+	//Context for DSTU2
   	FhirContext ctxDstu2 = FhirContext.forDstu2();
   	
   	//Create a Client
-//  	String serverBaseUrl = "http://fhirtest.uhn.ca/baseDstu2";
-  	String serverBaseUrl = "http://172.31.5.42:8080/baseDstu2";
+  	//String serverBaseUrl = "http://fhirtest.uhn.ca/baseDstu2";
+  	//String serverBaseUrl = "http://172.31.5.42:8080/baseDstu2"; //Austriacos
+  	String serverBaseUrl = "http://172.31.4.81:8080/baseDstu2"; //Marcela
   	IGenericClient client = ctxDstu2.newRestfulGenericClient(serverBaseUrl);
   	
   	//Log requests and responses
- 		client.registerInterceptor(new LoggingInterceptor(true));
+ 	client.registerInterceptor(new LoggingInterceptor(true));
 		
-		// Observation resources
+	// Observation resources
     Observation obs1 = new Observation();
     Observation obs2 = new Observation();
+    Observation obs3 = new Observation();
     
     //1st Observation report characteristics
     
@@ -212,7 +220,7 @@ public class MakingTransaction {
     if(idType.equals("Furore")){	
     	 web = "http://fhir.furore.com/NationalPatientID";}
     
-		// Build a search and execute it
+	// Build a search and execute it
     ca.uhn.fhir.model.api.Bundle response = client.search()
   	.forResource(Patient.class)
   	.where(Patient.IDENTIFIER.exactly().systemAndIdentifier(web, patientId))
@@ -284,11 +292,11 @@ public class MakingTransaction {
 			
 		//Add Code
 	  CodingDt obs2Code = obs2.getCode().addCoding();
-	  if(sampleType.equals("Blood")){
+	if(sampleType.equals("Blood")){
 	  	obs2Code.setSystem("http://loinc.org/");
 	  	obs2Code.setCode("600-7");
 	  	obs2Code.setDisplay("Bacteria identified in Blood by Culture");}
-	  if(sampleType.equals("Urine")){
+	if(sampleType.equals("Urine")){
 	  	obs2Code.setSystem("http://loinc.org/");
 	  	obs2Code.setCode("630-4");
 	  	obs2Code.setDisplay("Bacteria identified in Urine by Culture");}
@@ -347,6 +355,91 @@ public class MakingTransaction {
   	//Add a temporary UUID so that other resources in the transaction can refer to it
   	obs2.setId(IdDt.newRandomUuid());
   	}
+  	
+  //3er Observation report Microorganism identification
+ 	
+  	if(MOidentification != null){
+  	  	
+  	    //Add MetaData
+  	    obs3.getResourceMetadata().put(ResourceMetadataKeyEnum.PROFILES, "http://hl7.no/fhir/StructureDefinition/LabObservationNorway");
+  	    
+  	    //Add Status
+  	    if(status.equals("Final")){
+  	    	obs3.setStatus(ObservationStatusEnum.FINAL);
+  	    	}
+  	    if (status.equals("Partial")) {
+  	    	obs3.setStatus(ObservationStatusEnum.PRELIMINARY);
+  				}
+  	    if (status.equals("Registered")) {
+  	    	obs3.setStatus(ObservationStatusEnum.REGISTERED);
+  				};
+  				
+  			//Add Code
+  		  CodingDt obs3Code = obs3.getCode().addCoding();
+  		if(sampleType.equals("Blood")){
+  		  	obs3Code.setSystem("http://loinc.org/");
+  		  	obs3Code.setCode("600-7");
+  		  	obs3Code.setDisplay("Bacteria identified in Blood by Culture");}
+  		if(sampleType.equals("Urine")){
+  		  	obs3Code.setSystem("http://loinc.org/");
+  		  	obs3Code.setCode("630-4");
+  		  	obs3Code.setDisplay("Bacteria identified in Urine by Culture");}
+  		  
+  		  obs3.getSubject().setResource(pat1);
+  	    
+  	    //Add effective time
+  	  	obs3.setEffective(new DateTimeDt((testDate)));
+  	    
+  	  	//Add issued
+  	  	obs3.setIssued(new InstantDt(fecha));
+  	  	
+  	  	//Add performer
+  	  	performerList = obs3.getPerformer();
+  	  	
+  	  	//Add value
+  	  	obs3.setValue(new StringDt("Stain: " + gramStain + " Bacteria morphology: " + morpho));
+  	  	
+  	  	//Add interpretation
+  	  	CodingDt interpretationCoding3 = new CodingDt();
+  	  	
+  	  	if(MOidentification.equals("C.difficile")){
+  	  		interpretationCoding3.setSystem("http://snomed.info/sct");
+  	  		interpretationCoding3.setCode("44762009");
+  	  		interpretationCoding3.setDisplay("Genus Bacillus (organism)");
+  	  		interpretationCoding3.setUserSelected(true);}
+  	  	if(MOidentification.equals("P. aeruginosa")){
+  	  		interpretationCoding3.setSystem("http://snomed.info/sct");
+  	  		interpretationCoding3.setCode("52499004");
+  	  		interpretationCoding3.setDisplay("Pseudomonas aeruginosa (organism)");
+  	  		interpretationCoding3.setUserSelected(true);}
+  	  	if(MOidentification.equals("S. aureus")){
+  	  		interpretationCoding3.setSystem("http://snomed.info/sct");
+  	  		interpretationCoding3.setCode("3092008");
+  	  		interpretationCoding3.setDisplay("Staphylococcus aureus (organism)");
+  	  		interpretationCoding3.setUserSelected(true);}
+  	  	if(MOidentification.equals("N. meningitidis")){
+  	  		interpretationCoding3.setSystem("http://snomed.info/sct");
+  	  		interpretationCoding3.setCode("17872004");
+  	  		interpretationCoding3.setDisplay("Neisseria meningitidis (organism)");
+  	  		interpretationCoding3.setUserSelected(true);}
+  	  	
+  	  	
+  	  		
+  	  	obs3.getInterpretation().addCoding(interpretationCoding3);
+  	  	//S: Susceptible. R: Resistant. VS: Very susceptible. SYN-S: Synergy - susceptible. SYN-R: Synergy - resistant. SSD: Susceptible-dose dependent
+  	  	//POS: Positive, NEG: Negative
+  	  	obs3.getInterpretation().setText("Stain: " + gramStain + " Bacteria morphology: " + morpho);
+  	  	
+  	  	//Add comments
+  	  	obs3.setComments(comments);
+  	  	
+  	  	//Add a temporary UUID so that other resources in the transaction can refer to it
+  	  	obs3.setId(IdDt.newRandomUuid());
+  	  	}
+  	
+  		
+  	
+  	
   	
   	// Diagnostic report resource
     DiagnosticReport dr1 = new DiagnosticReport();
@@ -424,9 +517,9 @@ public class MakingTransaction {
     .setFullUrl(obs1.getId().getValue())
     .setResource(obs1)
     .getRequest()
-       .setUrl("Observation")
-//       .setIfNoneExist("Observation?identifier=http://acme.org/mrns|12345")
-       .setMethod(HTTPVerbEnum.POST);
+    .setUrl("Observation")
+    //.setIfNoneExist("Observation?identifier=http://acme.org/mrns|12345")
+    .setMethod(HTTPVerbEnum.POST);
 
   	if(morpho != null && gramStain != null){
   	bundle.addEntry()
