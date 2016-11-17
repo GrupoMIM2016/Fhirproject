@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
@@ -113,6 +114,45 @@ public class MainController implements Initializable {
 			atbButton.setDisable(true);
 		}
 	}
+
+	
+//Seleccionar el Germen específico
+	@FXML public CheckBox pAeruginosa;
+	@FXML public CheckBox sAureus;
+	@FXML public CheckBox nMeningitidis;
+	@FXML public CheckBox cDifficile;
+	@FXML public CheckBox eColi;
+	
+	public void gramStainListen(ActionEvent event) {
+		mktr.setgramStain(GramST.getValue());
+		if (GramST.getValue().equals("Gram Positive")){
+			pAeruginosa.setDisable(true);
+			nMeningitidis.setDisable(true);
+			eColi.setDisable(true);
+			sAureus.setDisable(false);
+			cDifficile.setDisable(false);}
+		if (GramST.getValue().equals("Gram Negative")){
+			pAeruginosa.setDisable(false);
+			nMeningitidis.setDisable(false);
+			eColi.setDisable(false);
+			sAureus.setDisable(true);
+			cDifficile.setDisable(true);}
+	}
+	public void morphoListen(ActionEvent event) {
+		mktr.setmorpho(Morpho.getValue());
+		if (GramST.getValue().equals("Coccus")){
+			pAeruginosa.setDisable(true);
+			cDifficile.setDisable(true);
+			eColi.setDisable(true);
+			sAureus.setDisable(false);
+			nMeningitidis.setDisable(false);}
+		if (GramST.getValue().equals("Baccillus (Rod)")){
+			sAureus.setDisable(true);
+			nMeningitidis.setDisable(true);
+			pAeruginosa.setDisable(false);
+			cDifficile.setDisable(false);
+			eColi.setDisable(false);}
+	}
 		
 	//Obtener resultados
 	public void IdListen(ActionEvent event) {
@@ -121,13 +161,7 @@ public class MainController implements Initializable {
 	public void DateListen(ActionEvent event) {
 		mktr.setTestDate(testDatePicker.getValue().toString());
 	}
-	public void gramStainListen(ActionEvent event) {
-		mktr.setgramStain(GramST.getValue());
-	}
-	public void morphoListen(ActionEvent event) {
-		mktr.setmorpho(Morpho.getValue());
-	}
-	
+
 	public void selectedAntibiogram(ActionEvent event) throws IOException{
 		
 		if (atbButton.isPickOnBounds()){
