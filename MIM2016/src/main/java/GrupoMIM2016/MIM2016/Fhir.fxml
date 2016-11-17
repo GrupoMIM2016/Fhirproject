@@ -157,11 +157,11 @@
                         <Button fx:id="atbButton" disable="true" layoutX="418.0" layoutY="371.0" mnemonicParsing="false" onAction="#selectedAntibiogram" prefHeight="27.0" prefWidth="59.0" text="ATB" />
                         <TextField fx:id="lastNameTxtField" layoutX="313.0" layoutY="173.0" prefHeight="27.0" prefWidth="163.0" promptText="Last Name" />
                         <TextField fx:id="nameTxtField" layoutX="147.0" layoutY="173.0" prefHeight="27.0" prefWidth="154.0" promptText="Name" />
-                        <CheckBox fx:id="pAeruginosa" layoutX="16.0" layoutY="410.0" mnemonicParsing="false" text="Pseudomonas aeruginosa" />
-                        <CheckBox fx:id="sAureus" layoutX="16.0" layoutY="437.0" mnemonicParsing="false" text="Staphylococcus aureus" />
-                        <CheckBox fx:id="eColi" layoutX="235.0" layoutY="410.0" mnemonicParsing="false" text="Escherichia coli" />
-                        <CheckBox fx:id="cdifficile" layoutX="234.0" layoutY="437.0" mnemonicParsing="false" text="Clostridium difficile" />
-                        <CheckBox fx:id="nMeningitidis" layoutX="15.0" layoutY="463.0" mnemonicParsing="false" text="Neisseria meningitidis" />
+                        <CheckBox fx:id="pAeruginosa" disable="true" layoutX="16.0" layoutY="410.0" mnemonicParsing="false" text="Pseudomonas aeruginosa" />
+                        <CheckBox fx:id="sAureus" disable="true" layoutX="16.0" layoutY="437.0" mnemonicParsing="false" text="Staphylococcus aureus" />
+                        <CheckBox fx:id="eColi" disable="true" layoutX="235.0" layoutY="410.0" mnemonicParsing="false" text="Escherichia coli" />
+                        <CheckBox fx:id="cdifficile" disable="true" layoutX="234.0" layoutY="437.0" mnemonicParsing="false" text="Clostridium difficile" />
+                        <CheckBox fx:id="nMeningitidis" disable="true" layoutX="15.0" layoutY="463.0" mnemonicParsing="false" text="Neisseria meningitidis" />
                      </children>
                   </AnchorPane>
             </content>

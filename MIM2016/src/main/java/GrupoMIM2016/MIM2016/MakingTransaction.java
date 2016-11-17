@@ -138,12 +138,14 @@ public class MakingTransaction {
 		System.out.println("Test code: " + testId);
 		System.out.println("Report status: " + status);
 		System.out.println("Sample: " + sampleType);
-		System.out.println("Type of Patient Id: " + idType);
-		System.out.println("Number of Patient Id: " + patientId);
-		System.out.println("Date of Sample Withdrawal: " + testDate);
-		System.out.println("Test Result: " + result);
+		System.out.println("Patient name: " + name);
+		System.out.println("Patient lastname: " + lastName);
+		System.out.println("Type of patient Id: " + idType);
+		System.out.println("Number of patient Id: " + patientId);
+		System.out.println("Date of sample withdrawal: " + testDate);
+		System.out.println("Test result: " + result);
 		System.out.println("Comments: " + comments);
-		System.out.println("Gram Stain: " + gramStain);
+		System.out.println("Gram stain: " + gramStain);
 		System.out.println("Morphology: " + morpho);
 		System.out.println("Microorganism identification: " + MOidentification);
 		
@@ -164,9 +166,9 @@ public class MakingTransaction {
   	patId.setSystem(web);
   	patId.setValue(patientId);
   	patId.setUse(IdentifierUseEnum.OFFICIAL);
-  	HumanNameDt name = pat1.addName();
-  	name.addFamily("McCartney");
-  	name.addGiven("Paul");
+  	HumanNameDt patientName = pat1.addName();
+  	patientName.addFamily(lastName);
+  	patientName.addGiven(name);
 		
 	//Context for DSTU2
   	FhirContext ctxDstu2 = FhirContext.forDstu2();
@@ -175,6 +177,7 @@ public class MakingTransaction {
   	//String serverBaseUrl = "http://fhirtest.uhn.ca/baseDstu2";
   	//String serverBaseUrl = "http://172.31.5.42:8080/baseDstu2"; //Austriacos
   	String serverBaseUrl = "http://172.31.4.81:8080/baseDstu2"; //Marcela
+
   	IGenericClient client = ctxDstu2.newRestfulGenericClient(serverBaseUrl);
   	
   	//Log requests and responses
@@ -397,7 +400,7 @@ public class MakingTransaction {
   	  	performerList = obs3.getPerformer();
   	  	
   	  	//Add value
-  	  	obs3.setValue(new StringDt("Stain: " + gramStain + " Bacteria morphology: " + morpho));
+  	  	obs3.setValue(new StringDt("Microorganism identification: " + MOidentification));
   	  	
   	  	//Add interpretation
   	  	CodingDt interpretationCoding3 = new CodingDt();
