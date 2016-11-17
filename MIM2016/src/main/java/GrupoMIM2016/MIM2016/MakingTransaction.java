@@ -276,7 +276,7 @@ public class MakingTransaction {
   	//Add a temporary UUID so that other resources in the transaction can refer to it
   	obs1.setId(IdDt.newRandomUuid());
 
-    //2nd Observation report characteristics (Gramm and morphology)
+    //2nd Observation report characteristics (Gram and morphology)
   	if(morpho != null && gramStain != null){
   	
     //Add MetaData
@@ -407,8 +407,8 @@ public class MakingTransaction {
   	  	
   	  	if(MOidentification.equals("C.difficile")){
   	  		interpretationCoding3.setSystem("http://snomed.info/sct");
-  	  		interpretationCoding3.setCode("44762009");
-  	  		interpretationCoding3.setDisplay("Genus Bacillus (organism)");
+  	  		interpretationCoding3.setCode("5933001");
+  	  		interpretationCoding3.setDisplay("Clostridium difficile (organism)");
   	  		interpretationCoding3.setUserSelected(true);}
   	  	if(MOidentification.equals("P. aeruginosa")){
   	  		interpretationCoding3.setSystem("http://snomed.info/sct");
@@ -429,9 +429,8 @@ public class MakingTransaction {
   	  	
   	  		
   	  	obs3.getInterpretation().addCoding(interpretationCoding3);
-  	  	//S: Susceptible. R: Resistant. VS: Very susceptible. SYN-S: Synergy - susceptible. SYN-R: Synergy - resistant. SSD: Susceptible-dose dependent
-  	  	//POS: Positive, NEG: Negative
-  	  	obs3.getInterpretation().setText("Stain: " + gramStain + " Bacteria morphology: " + morpho);
+ 
+  	  	obs3.getInterpretation().setText("Microorganism identification: " + MOidentification);
   	  	
   	  	//Add comments
   	  	obs3.setComments(comments);
@@ -439,10 +438,6 @@ public class MakingTransaction {
   	  	//Add a temporary UUID so that other resources in the transaction can refer to it
   	  	obs3.setId(IdDt.newRandomUuid());
   	  	}
-  	
-  		
-  	
-  	
   	
   	// Diagnostic report resource
     DiagnosticReport dr1 = new DiagnosticReport();
