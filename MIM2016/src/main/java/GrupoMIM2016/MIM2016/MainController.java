@@ -127,8 +127,13 @@ public class MainController implements Initializable {
 		if (GramST.getValue().equals("Gram Positive")){
 			pAeruginosa.setDisable(true);
 			nMeningitidis.setDisable(true);
-			eColi.setDisable(true);}
+			eColi.setDisable(true);
+			sAureus.setDisable(false);
+			cDifficile.setDisable(false);}
 		if (GramST.getValue().equals("Gram Negative")){
+			pAeruginosa.setDisable(false);
+			nMeningitidis.setDisable(false);
+			eColi.setDisable(false);
 			sAureus.setDisable(true);
 			cDifficile.setDisable(true);}
 	}
@@ -137,10 +142,15 @@ public class MainController implements Initializable {
 		if (GramST.getValue().equals("Coccus")){
 			pAeruginosa.setDisable(true);
 			cDifficile.setDisable(true);
-			eColi.setDisable(true);}
+			eColi.setDisable(true);
+			sAureus.setDisable(false);
+			nMeningitidis.setDisable(false);}
 		if (GramST.getValue().equals("Baccillus (Rod)")){
 			sAureus.setDisable(true);
-			nMeningitidis.setDisable(true);}
+			nMeningitidis.setDisable(true);
+			pAeruginosa.setDisable(false);
+			cDifficile.setDisable(false);
+			eColi.setDisable(false);}
 	}
 		
 	//Obtener valores de tipo de Id y Date
