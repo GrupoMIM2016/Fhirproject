@@ -113,6 +113,7 @@ public class MainController implements Initializable {
 			atbButton.setDisable(true);
 		}
 	}
+
 	
 //Seleccionar el Germen específico
 	@FXML public CheckBox pAeruginosa;
@@ -188,14 +189,14 @@ public class MainController implements Initializable {
 			cDifficile.setDisable(true);}
 		}
 		
-	//Obtener valores de tipo de Id y Date
+	//Obtener resultados
 	public void IdListen(ActionEvent event) {
 		mktr.setIdType(IdType.getValue());
 	}
 	public void DateListen(ActionEvent event) {
 		mktr.setTestDate(testDatePicker.getValue().toString());
 	}
-	
+
 	public void selectedAntibiogram(ActionEvent event) throws IOException{
 		
 		if (atbButton.isPickOnBounds()){
