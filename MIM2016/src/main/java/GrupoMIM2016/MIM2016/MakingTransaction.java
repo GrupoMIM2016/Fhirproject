@@ -163,8 +163,6 @@ public class MakingTransaction {
 		System.out.println("Microorganism identification: " + MOidentification);
 		*/
 		
-		System.out.println("Microorganism identification: " + MOidentification);
-		
 	Organization org1 = new Organization();
 	IdentifierDt orgId = org1.addIdentifier();
   	orgId.setSystem("http://fhir.furore.com/NamingSystem/NationalOrganizationIdentifier");

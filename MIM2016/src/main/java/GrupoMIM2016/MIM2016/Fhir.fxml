@@ -167,7 +167,7 @@
                            </opaqueInsets>
                         </ComboBox>
                         <ComboBox fx:id="Morpho" disable="true" layoutX="220.0" layoutY="380.0" onAction="#morphoListen" prefHeight="30.0" prefWidth="180.0" promptText="Morphology" />
-                        <ComboBox fx:id="MOidentification" disable="true" layoutX="17.0" layoutY="425.0" onAction="#gramStainListen" prefHeight="30.0" prefWidth="380.0" promptText="Microorganism">
+                        <ComboBox fx:id="MOidentification" disable="true" layoutX="17.0" layoutY="425.0" onAction="#MOListen" prefHeight="30.0" prefWidth="380.0" promptText="Microorganism">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
