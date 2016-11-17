@@ -78,7 +78,7 @@
                            </font>
                         </RadioButton>
                         <DatePicker fx:id="testDatePicker" layoutX="257.0" layoutY="276.0" onAction="#DateListen" prefHeight="30.0" prefWidth="161.0" />
-                        <RadioButton fx:id="BloodRdbtn" layoutX="241.0" layoutY="115.0" mnemonicParsing="false" onAction="#TypeListen" text="Blood">
+                        <RadioButton fx:id="BloodRdbtn" layoutX="138.0" layoutY="116.0" mnemonicParsing="false" onAction="#TypeListen" text="Blood">
                            <toggleGroup>
                               <ToggleGroup fx:id="type" />
                            </toggleGroup>
@@ -86,12 +86,12 @@
                               <Font size="16.0" />
                            </font>
                         </RadioButton>
-                        <RadioButton fx:id="UrineRdbtn" layoutX="380.0" layoutY="115.0" mnemonicParsing="false" onAction="#TypeListen" text="Urine" toggleGroup="$type">
+                        <RadioButton fx:id="UrineRdbtn" layoutX="222.0" layoutY="116.0" mnemonicParsing="false" onAction="#TypeListen" text="Urine" toggleGroup="$type">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </RadioButton>
-                        <Label layoutX="62.0" layoutY="236.0" prefHeight="30.0" prefWidth="90.0" text="Id Type:">
+                        <Label layoutX="17.0" layoutY="236.0" prefHeight="30.0" prefWidth="90.0" text="Id Type:">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -99,7 +99,7 @@
                               <Insets left="5.0" />
                            </padding>
                         </Label>
-                        <Label layoutX="272.0" layoutY="236.0" prefHeight="30.0" prefWidth="83.0" text="Number:">
+                        <Label layoutX="234.0" layoutY="237.0" prefHeight="30.0" prefWidth="83.0" text="Number:">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -145,9 +145,9 @@
                            </font>
                         </RadioButton>
                         <TextField fx:id="testIdentifierTxtField" layoutX="205.0" layoutY="16.0" prefHeight="30.0" prefWidth="200.0" />
-                        <TextField fx:id="patientIdentifierTxtField" layoutX="360.0" layoutY="238.0" prefHeight="27.0" prefWidth="119.0" />
+                        <TextField fx:id="patientIdentifierTxtField" layoutX="318.0" layoutY="239.0" prefHeight="27.0" prefWidth="119.0" />
                         <TextField fx:id="commentsTxtField" layoutX="134.0" layoutY="507.0" prefHeight="30.0" prefWidth="217.0" />
-                        <ComboBox fx:id="IdType" layoutX="146.0" layoutY="237.0" onAction="#IdListen" prefHeight="27.0" prefWidth="119.0" promptText="Select Id Type" />
+                        <ComboBox fx:id="IdType" layoutX="88.0" layoutY="238.0" onAction="#IdListen" prefHeight="27.0" prefWidth="119.0" promptText="Select Id Type" />
                         <ComboBox fx:id="GramST" disable="true" layoutX="17.0" layoutY="371.0" onAction="#gramStainListen" prefHeight="27.0" prefWidth="125.0" promptText="Gram stain">
                            <opaqueInsets>
                               <Insets />
@@ -155,14 +155,14 @@
                         </ComboBox>
                         <ComboBox fx:id="Morpho" disable="true" layoutX="164.0" layoutY="371.0" onAction="#morphoListen" prefHeight="27.0" prefWidth="145.0" promptText="Morphology" />
                         <Button fx:id="atbButton" disable="true" layoutX="418.0" layoutY="371.0" mnemonicParsing="false" onAction="#selectedAntibiogram" prefHeight="27.0" prefWidth="59.0" text="ATB" />
-                        <TextField fx:id="lastNameTxtField" disable="true" layoutX="313.0" layoutY="200.0" prefHeight="27.0" prefWidth="163.0" promptText="Last Name" />
-                        <TextField fx:id="nameTxtField" disable="true" layoutX="147.0" layoutY="200.0" prefHeight="27.0" prefWidth="154.0" promptText="Name" />
+                        <TextField fx:id="lastNameTxtField" disable="true" layoutX="257.0" layoutY="200.0" prefHeight="27.0" prefWidth="163.0" promptText="Last Name" />
+                        <TextField fx:id="nameTxtField" disable="true" layoutX="87.0" layoutY="200.0" prefHeight="27.0" prefWidth="154.0" promptText="Name" />
                         <CheckBox fx:id="pAeruginosa" disable="true" layoutX="16.0" layoutY="410.0" mnemonicParsing="false" text="Pseudomonas aeruginosa" />
                         <CheckBox fx:id="sAureus" disable="true" layoutX="16.0" layoutY="437.0" mnemonicParsing="false" text="Staphylococcus aureus" />
                         <CheckBox fx:id="eColi" disable="true" layoutX="235.0" layoutY="410.0" mnemonicParsing="false" text="Escherichia coli" />
-                        <CheckBox fx:id="cdifficile" disable="true" layoutX="234.0" layoutY="437.0" mnemonicParsing="false" text="Clostridium difficile" />
+                        <CheckBox fx:id="cDifficile" disable="true" layoutX="234.0" layoutY="437.0" mnemonicParsing="false" text="Clostridium difficile" />
                         <CheckBox fx:id="nMeningitidis" disable="true" layoutX="15.0" layoutY="463.0" mnemonicParsing="false" text="Neisseria meningitidis" />
-                        <RadioButton fx:id="BloodRdbtn1" layoutX="380.0" layoutY="162.0" mnemonicParsing="false" onAction="#TypeListen" text="Assign">
+                        <RadioButton fx:id="BloodRdbtn1" layoutX="222.0" layoutY="163.0" mnemonicParsing="false" onAction="#TypeListen" text="Assign">
                            <toggleGroup>
                               <ToggleGroup fx:id="type1" />
                            </toggleGroup>
@@ -170,7 +170,7 @@
                               <Font size="16.0" />
                            </font>
                         </RadioButton>
-                        <RadioButton fx:id="BloodRdbtn2" layoutX="243.0" layoutY="162.0" mnemonicParsing="false" onAction="#TypeListen" text="Create">
+                        <RadioButton fx:id="BloodRdbtn2" layoutX="135.0" layoutY="163.0" mnemonicParsing="false" onAction="#TypeListen" text="Create">
                            <toggleGroup>
                               <ToggleGroup fx:id="type2" />
                            </toggleGroup>
