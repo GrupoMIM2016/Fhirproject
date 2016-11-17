@@ -16,7 +16,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
@@ -34,6 +33,27 @@ public class MainController implements Initializable {
     return localDate;
 }
 	
+	//Seleccionar el Resultado
+	@FXML public RadioButton PositiveRdbtn;
+	@FXML public RadioButton NegativeRdbtn;
+	
+	public void ResultListen(ActionEvent event){
+		if (PositiveRdbtn.isSelected()){
+			mktr.setResult(PositiveRdbtn.getText());
+			GramST.setDisable(false);
+			Morpho.setDisable(false);
+			atbButton.setDisable(false);
+			MOidentification.setDisable(false);
+		}
+		if (NegativeRdbtn.isSelected()){
+			mktr.setResult(NegativeRdbtn.getText());
+			GramST.setDisable(true);
+			Morpho.setDisable(true);
+			atbButton.setDisable(true);
+			MOidentification.setDisable(true);
+		}
+	}
+	
 	//Selecionar tipo de bacteria
 	@FXML public ComboBox<String> GramST;
 	ObservableList<String> GramList = FXCollections.observableArrayList("Gram Negative", "Gram Positive");
@@ -44,8 +64,51 @@ public class MainController implements Initializable {
 	@FXML public Button atbButton;
 	
 	//Seleccionar la fecha de toma de muestra
-	@FXML
-	public DatePicker testDatePicker;
+	@FXML public DatePicker testDatePicker;
+	
+	//Decision si crear o asignar paciente
+	@FXML public RadioButton CreateRdbtn;
+	@FXML public RadioButton AssignRdbtn;
+	
+	//Seleccionar el microorganismo identificado
+	@FXML public ComboBox<String> MOidentification;
+	ObservableList<String> MOList = FXCollections.observableArrayList("");
+	
+	//Determinar tincion Gram y morfologia
+	public void gramStainListen(ActionEvent event) {
+		mktr.setgramStain(GramST.getValue());
+		if((GramST.getValue().equals("Gram Negative")) && (Morpho.equals("Baccillus (Rod)"))){
+			MOList.add("Pseudomonas aeruginosa");
+			MOList.add("Escherichia coli");
+			while(MOList.remove("Neisseria meningitidis")) {}
+			while(MOList.remove("")) {}
+			while(MOList.remove("Clostridium difficile")) {}
+			while(MOList.remove("Staphylococcus aureus")) {}
+		}
+	}
+	
+	public void morphoListen(ActionEvent event) {
+		mktr.setmorpho(Morpho.getValue());
+	}
+	
+	public void CreateMOList(ActionEvent event){
+		if ((GramST.getValue().equals("Gram Negative")) && (Morpho.equals("Baccillus (Rod)"))){
+			
+		}
+	}
+	
+	public void PatientListen(ActionEvent event){
+		if (CreateRdbtn.isSelected()){
+			mktr.setPatient(CreateRdbtn.getText());
+			nameTxtField.setDisable(false);
+			lastNameTxtField.setDisable(false);
+		}
+		if (AssignRdbtn.isSelected()){
+			mktr.setPatient(AssignRdbtn.getText());
+			nameTxtField.setDisable(true);
+			lastNameTxtField.setDisable(true);
+		}
+	}
 	
 	//Seleccionar el tipo de identificación
 	@FXML public ComboBox<String> IdType;
@@ -55,20 +118,21 @@ public class MainController implements Initializable {
 		IdType.setItems(IdTypeList);
 		GramST.setItems(GramList);
 		Morpho.setItems(MorphoList);
+		MOidentification.setItems(MOList);
 		testDatePicker.setValue(NowLocalDate());
 	}
 	
-	//Seleccionar el status de la muestra
-	@FXML public RadioButton FinalRdbtn;
-	@FXML public RadioButton PreliminaryRdbtn;
-	@FXML public RadioButton RegisteredRdbtn;
-	
-	//Escribir textos
+//Escribir textos
 	@FXML public TextField testIdentifierTxtField;
 	@FXML public TextField patientIdentifierTxtField;
 	@FXML public TextField commentsTxtField;
 	@FXML public TextField nameTxtField;
 	@FXML public TextField lastNameTxtField;
+	
+	//Seleccionar el status de la muestra
+	@FXML public RadioButton FinalRdbtn;
+	@FXML public RadioButton PreliminaryRdbtn;
+	@FXML public RadioButton RegisteredRdbtn;
 	
 	public void StatusListen(ActionEvent event){
 		if (FinalRdbtn.isSelected()){
@@ -94,100 +158,6 @@ public class MainController implements Initializable {
 			mktr.setSampleType(UrineRdbtn.getText());
 		}
 	}
-	
-//Seleccionar el Resultado
-	@FXML public RadioButton PositiveRdbtn;
-	@FXML public RadioButton NegativeRdbtn;
-	
-	public void ResultListen(ActionEvent event){
-		if (PositiveRdbtn.isSelected()){
-			mktr.setResult(PositiveRdbtn.getText());
-			GramST.setDisable(false);
-			Morpho.setDisable(false);
-			atbButton.setDisable(false);
-		}
-		if (NegativeRdbtn.isSelected()){
-			mktr.setResult(NegativeRdbtn.getText());
-			GramST.setDisable(true);
-			Morpho.setDisable(true);
-			atbButton.setDisable(true);
-		}
-	}
-
-	
-//Seleccionar el Germen específico
-	@FXML public CheckBox pAeruginosa;
-	@FXML public CheckBox sAureus;
-	@FXML public CheckBox nMeningitidis;
-	@FXML public CheckBox cDifficile;
-	@FXML public CheckBox eColi;
-	
-	public void gramStainListen(ActionEvent event) {
-		mktr.setgramStain(GramST.getValue());
-		if ((GramST.getValue().equals("Gram Positive")) && (Morpho.getValue().equals("Coccus"))){
-			pAeruginosa.setDisable(true);
-			nMeningitidis.setDisable(true);
-			eColi.setDisable(true);
-			sAureus.setDisable(false);
-			cDifficile.setDisable(true);}
-		if ((GramST.getValue().equals("Gram Positive")) && (Morpho.getValue().equals("Baccillus (Rod)"))){
-			pAeruginosa.setDisable(true);
-			nMeningitidis.setDisable(true);
-			eColi.setDisable(true);
-			sAureus.setDisable(true);
-			cDifficile.setDisable(false);}
-		if ((GramST.getValue().equals("Gram Negative")) && (Morpho.getValue().equals("Coccus"))){
-			pAeruginosa.setDisable(true);
-			nMeningitidis.setDisable(false);
-			eColi.setDisable(true);
-			sAureus.setDisable(true);
-			cDifficile.setDisable(true);}
-		if ((GramST.getValue().equals("Gram Negative")) && (Morpho.getValue().equals("Baccillus (Rod)"))){
-			pAeruginosa.setDisable(false);
-			nMeningitidis.setDisable(true);
-			eColi.setDisable(false);
-			sAureus.setDisable(true);
-			cDifficile.setDisable(true);}
-		else{
-			pAeruginosa.setDisable(true);
-			nMeningitidis.setDisable(true);
-			eColi.setDisable(true);
-			sAureus.setDisable(true);
-			cDifficile.setDisable(true);}
-		}
-	public void morphoListen(ActionEvent event) {
-		mktr.setmorpho(Morpho.getValue());
-		if ((GramST.getValue().equals("Gram Positive")) && (Morpho.getValue().equals("Coccus"))){
-			pAeruginosa.setDisable(true);
-			nMeningitidis.setDisable(true);
-			eColi.setDisable(true);
-			sAureus.setDisable(false);
-			cDifficile.setDisable(true);}
-		if ((GramST.getValue().equals("Gram Positive")) && (Morpho.getValue().equals("Baccillus (Rod)"))){
-			pAeruginosa.setDisable(true);
-			nMeningitidis.setDisable(true);
-			eColi.setDisable(true);
-			sAureus.setDisable(true);
-			cDifficile.setDisable(false);}
-		if ((GramST.getValue().equals("Gram Negative")) && (Morpho.getValue().equals("Coccus"))){
-			pAeruginosa.setDisable(true);
-			nMeningitidis.setDisable(false);
-			eColi.setDisable(true);
-			sAureus.setDisable(true);
-			cDifficile.setDisable(true);}
-		if ((GramST.getValue().equals("Gram Negative")) && (Morpho.getValue().equals("Baccillus (Rod)"))){
-			pAeruginosa.setDisable(false);
-			nMeningitidis.setDisable(true);
-			eColi.setDisable(false);
-			sAureus.setDisable(true);
-			cDifficile.setDisable(true);}
-		else{
-			pAeruginosa.setDisable(true);
-			nMeningitidis.setDisable(true);
-			eColi.setDisable(true);
-			sAureus.setDisable(true);
-			cDifficile.setDisable(true);}
-		}
 		
 	//Obtener resultados
 	public void IdListen(ActionEvent event) {

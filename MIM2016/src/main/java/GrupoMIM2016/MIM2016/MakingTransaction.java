@@ -43,6 +43,9 @@ public class MakingTransaction {
 	String morpho = null;
 	String name = null;
 	String lastName = null;
+	String patient = null;
+	Patient pat1 = new Patient();
+	IdDt firstResponseId = new IdDt();
 	
 	public String getIdType() {
 	return this.idType;}
@@ -128,13 +131,20 @@ public class MakingTransaction {
 	public String getname() {
 		return this.name;}
 
-		public void setname(String name) {
+	public void setname(String name) {
 			this.name = name;
-		}
+	}
 	
+	public String getPatient() {
+		return this.patient;}
+	
+	public void setPatient(String patient) {
+		this.patient = patient;
+	}
 
 	public void main( ) throws IOException{
 		
+		/*
 		System.out.println("Test code: " + testId);
 		System.out.println("Report status: " + status);
 		System.out.println("Sample: " + sampleType);
@@ -148,6 +158,7 @@ public class MakingTransaction {
 		System.out.println("Gram stain: " + gramStain);
 		System.out.println("Morphology: " + morpho);
 		System.out.println("Microorganism identification: " + MOidentification);
+		*/
 		
 	Organization org1 = new Organization();
 	IdentifierDt orgId = org1.addIdentifier();
@@ -161,7 +172,7 @@ public class MakingTransaction {
     if(idType.equals("Furore")){	
     	 web = "http://fhir.furore.com/NationalPatientID";}
   	
-  	Patient pat1 = new Patient();
+  	if(patient.equals("Create")){
   	IdentifierDt patId = pat1.addIdentifier();
   	patId.setSystem(web);
   	patId.setValue(patientId);
@@ -169,6 +180,7 @@ public class MakingTransaction {
   	HumanNameDt patientName = pat1.addName();
   	patientName.addFamily(lastName);
   	patientName.addGiven(name);
+  	}
 		
 	//Context for DSTU2
   	FhirContext ctxDstu2 = FhirContext.forDstu2();
@@ -215,24 +227,20 @@ public class MakingTransaction {
 	  	obsCode.setCode("630-4");
 	  	obsCode.setDisplay("Bacteria identified in Urine by Culture");}
 	  
-	  /*
-	  //Add Subject
-	  String web = "";
-    if(idType.equals("RUT")){
-    	 web= "wwww.regcivil.cl/rut";}
-    if(idType.equals("Furore")){	
-    	 web = "http://fhir.furore.com/NationalPatientID";}
-    
+	  if(patient.equals("Assign")){
 	// Build a search and execute it
     ca.uhn.fhir.model.api.Bundle response = client.search()
   	.forResource(Patient.class)
   	.where(Patient.IDENTIFIER.exactly().systemAndIdentifier(web, patientId))
   	.execute();
-    IdDt firstResponseId = response.getEntries().get(0).getResource().getId();
+    firstResponseId = response.getEntries().get(0).getResource().getId();
     ResourceReferenceDt obsSubject = obs1.getSubject();
     obsSubject.setReference(firstResponseId);
-    */
+	  }
+    
+	  if(patient.equals("Create")){
 	  obs1.getSubject().setResource(pat1);
+	  }
 	  
     //Add effective time
   	obs1.setEffective(new DateTimeDt((testDate)));
@@ -304,12 +312,14 @@ public class MakingTransaction {
 	  	obs2Code.setCode("630-4");
 	  	obs2Code.setDisplay("Bacteria identified in Urine by Culture");}
 	  
-	  /*
 	  //Add Subject
-    ResourceReferenceDt obs2Subject = obs2.getSubject();
+		if(patient.equals("Assign")){
+		ResourceReferenceDt obs2Subject = obs2.getSubject();
     obs2Subject.setReference(firstResponseId);
-	  */
+		}
+		if(patient.equals("Create")){
 	  obs2.getSubject().setResource(pat1);
+		}
     
     //Add effective time
   	obs2.setEffective(new DateTimeDt((testDate)));
@@ -318,7 +328,8 @@ public class MakingTransaction {
   	obs2.setIssued(new InstantDt(fecha));
   	
   	//Add performer
-  	performerList = obs2.getPerformer();
+  	List<ResourceReferenceDt> performerList2 = obs2.getPerformer();
+  	performerList2.add(new ResourceReferenceDt(org1));
   	
   	//Add value
   	obs2.setValue(new StringDt("Stain: " + gramStain + " Bacteria morphology: " + morpho));
@@ -388,7 +399,14 @@ public class MakingTransaction {
   		  	obs3Code.setCode("630-4");
   		  	obs3Code.setDisplay("Bacteria identified in Urine by Culture");}
   		  
-  		  obs3.getSubject().setResource(pat1);
+  	//Add Subject
+  		if(patient.equals("Assign")){
+  		ResourceReferenceDt obs3Subject = obs3.getSubject();
+      obs3Subject.setReference(firstResponseId);
+  		}
+  		if(patient.equals("Create")){
+  	  obs3.getSubject().setResource(pat1);
+  		}
   	    
   	    //Add effective time
   	  	obs3.setEffective(new DateTimeDt((testDate)));
@@ -397,40 +415,44 @@ public class MakingTransaction {
   	  	obs3.setIssued(new InstantDt(fecha));
   	  	
   	  	//Add performer
-  	  	performerList = obs3.getPerformer();
+  	  	List<ResourceReferenceDt> performerList3 = obs3.getPerformer();
+  	  	performerList3.add(new ResourceReferenceDt(org1));
   	  	
   	  	//Add value
-  	  	obs3.setValue(new StringDt("Microorganism identification: " + MOidentification));
+  	  	obs3.setValue(new StringDt("Identified Microorganism: " + MOidentification));
   	  	
   	  	//Add interpretation
   	  	CodingDt interpretationCoding3 = new CodingDt();
   	  	
-  	  	if(MOidentification.equals("C.difficile")){
+  	  	if(MOidentification.equals("Clostridium difficile")){
   	  		interpretationCoding3.setSystem("http://snomed.info/sct");
   	  		interpretationCoding3.setCode("5933001");
   	  		interpretationCoding3.setDisplay("Clostridium difficile (organism)");
   	  		interpretationCoding3.setUserSelected(true);}
-  	  	if(MOidentification.equals("P. aeruginosa")){
+  	  	if(MOidentification.equals("Pseudomonas aeruginosa")){
   	  		interpretationCoding3.setSystem("http://snomed.info/sct");
   	  		interpretationCoding3.setCode("52499004");
   	  		interpretationCoding3.setDisplay("Pseudomonas aeruginosa (organism)");
   	  		interpretationCoding3.setUserSelected(true);}
-  	  	if(MOidentification.equals("S. aureus")){
+  	  	if(MOidentification.equals("Staphylococcus aureus")){
   	  		interpretationCoding3.setSystem("http://snomed.info/sct");
   	  		interpretationCoding3.setCode("3092008");
   	  		interpretationCoding3.setDisplay("Staphylococcus aureus (organism)");
   	  		interpretationCoding3.setUserSelected(true);}
-  	  	if(MOidentification.equals("N. meningitidis")){
+  	  	if(MOidentification.equals("Neisseria meningitidis")){
   	  		interpretationCoding3.setSystem("http://snomed.info/sct");
   	  		interpretationCoding3.setCode("17872004");
   	  		interpretationCoding3.setDisplay("Neisseria meningitidis (organism)");
   	  		interpretationCoding3.setUserSelected(true);}
+  	  	if(MOidentification.equals("Escherichia coli")){
+  	  		interpretationCoding3.setSystem("http://snomed.info/sct");
+  	  		interpretationCoding3.setCode("112283007");
+  	  		interpretationCoding3.setDisplay("Escherichia coli (organism)");
+  	  		interpretationCoding3.setUserSelected(true);}
   	  	
-  	  	
-  	  		
   	  	obs3.getInterpretation().addCoding(interpretationCoding3);
  
-  	  	obs3.getInterpretation().setText("Microorganism identification: " + MOidentification);
+  	  	obs3.getInterpretation().setText("Identified Microorganism: " + MOidentification);
   	  	
   	  	//Add comments
   	  	obs3.setComments(comments);
@@ -470,12 +492,15 @@ public class MakingTransaction {
   	drCode.setCode("630-4");
   	drCode.setDisplay("Bacteria identified in Urine by Culture");}	
   	
-  	/*
-  	//Add Subject    
-  	ResourceReferenceDt drSubject = dr1.getSubject();
-  	drSubject.setReference(firstResponseId);
-  	*/
-  	dr1.getSubject().setResource(pat1);
+  	
+  	//Add Subject
+		if(patient.equals("Assign")){
+		ResourceReferenceDt dr1Subject = dr1.getSubject();
+    dr1Subject.setReference(firstResponseId);
+		}
+		if(patient.equals("Create")){
+	  dr1.getSubject().setResource(pat1);
+		}
   	
   	//Add effective time
   	dr1.setEffective(new DateTimeDt(testDate));
@@ -494,6 +519,7 @@ public class MakingTransaction {
   	List<ResourceReferenceDt> resultList = dr1.getResult();
   	resultList.add(new ResourceReferenceDt(obs1.getId().getValue()));
   	resultList.add(new ResourceReferenceDt(obs2.getId().getValue()));
+  	resultList.add(new ResourceReferenceDt(obs3.getId().getValue()));
   	
   	// Create a bundle that will be used as a transaction
   	Bundle bundle = new Bundle();
@@ -527,6 +553,15 @@ public class MakingTransaction {
        .setUrl("Observation")
        .setMethod(HTTPVerbEnum.POST);
   	}
+  	
+  	if(MOidentification != null){
+    	bundle.addEntry()
+      .setFullUrl(obs3.getId().getValue())
+      .setResource(obs3)
+      .getRequest()
+         .setUrl("Observation")
+         .setMethod(HTTPVerbEnum.POST);
+    	}
   	
   	// Add the Diagnostic Report as an entry
   	bundle.addEntry()

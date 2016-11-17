@@ -67,7 +67,7 @@
                               <Insets left="5.0" />
                            </padding>
                         </Label>
-                        <Button fx:id="Sendbtn" layoutX="388.0" layoutY="520.0" mnemonicParsing="false" onAction="#SendAction" prefHeight="39.0" prefWidth="100.0" style="-fx-background-color: green; -fx-background-radius: 10;" text="Send">
+                        <Button fx:id="Sendbtn" layoutX="376.0" layoutY="500.0" mnemonicParsing="false" onAction="#SendAction" prefHeight="39.0" prefWidth="100.0" style="-fx-background-color: green; -fx-background-radius: 10;" text="Send">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -136,7 +136,7 @@
                               <Insets left="5.0" />
                            </padding>
                         </Label>
-                        <Label layoutX="14.0" layoutY="510.0" prefHeight="30.0" prefWidth="116.0" text="Conclusion:">
+                        <Label layoutX="14.0" layoutY="470.0" prefHeight="30.0" prefWidth="116.0" text="Conclusion:">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -159,7 +159,7 @@
                         </RadioButton>
                         <TextField fx:id="testIdentifierTxtField" layoutX="200.0" layoutY="20.0" prefHeight="30.0" prefWidth="200.0" style="-fx-background-radius: 15;" />
                         <TextField fx:id="patientIdentifierTxtField" layoutX="367.0" layoutY="245.0" prefHeight="27.0" prefWidth="119.0" style="-fx-background-radius: 15;" />
-                        <TextField fx:id="commentsTxtField" layoutX="130.0" layoutY="510.0" prefHeight="30.0" prefWidth="217.0" style="-fx-background-radius: 15;" />
+                        <TextField fx:id="commentsTxtField" layoutX="130.0" layoutY="470.0" prefHeight="30.0" prefWidth="217.0" style="-fx-background-radius: 15;" />
                         <ComboBox fx:id="IdType" layoutX="110.0" layoutY="245.0" onAction="#IdListen" prefHeight="27.0" prefWidth="145.0" promptText="Select Id Type" />
                         <ComboBox fx:id="GramST" disable="true" layoutX="17.0" layoutY="380.0" onAction="#gramStainListen" prefHeight="30.0" prefWidth="180.0" promptText="Gram stain">
                            <opaqueInsets>
@@ -167,15 +167,15 @@
                            </opaqueInsets>
                         </ComboBox>
                         <ComboBox fx:id="Morpho" disable="true" layoutX="220.0" layoutY="380.0" onAction="#morphoListen" prefHeight="30.0" prefWidth="180.0" promptText="Morphology" />
+                        <ComboBox fx:id="MOidentification" disable="true" layoutX="17.0" layoutY="425.0" onAction="#gramStainListen" prefHeight="30.0" prefWidth="380.0" promptText="Microorganism">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </ComboBox>
                         <Button fx:id="atbButton" disable="true" layoutX="418.0" layoutY="380.0" mnemonicParsing="false" onAction="#selectedAntibiogram" prefHeight="30.0" prefWidth="60.0" text="ATB" />
                         <TextField fx:id="lastNameTxtField" disable="true" layoutX="298.0" layoutY="200.0" prefHeight="27.0" prefWidth="163.0" promptText="Last Name" />
                         <TextField fx:id="nameTxtField" disable="true" layoutX="110.0" layoutY="200.0" prefHeight="27.0" prefWidth="154.0" promptText="Name" />
-                        <CheckBox fx:id="pAeruginosa" disable="true" layoutX="18.0" layoutY="415.0" mnemonicParsing="false" text="Pseudomonas aeruginosa" />
-                        <CheckBox fx:id="sAureus" disable="true" layoutX="18.0" layoutY="440.0" mnemonicParsing="false" text="Staphylococcus aureus" />
-                        <CheckBox fx:id="eColi" disable="true" layoutX="250.0" layoutY="415.0" mnemonicParsing="false" text="Escherichia coli" />
-                        <CheckBox fx:id="cDifficile" disable="true" layoutX="250.0" layoutY="440.0" mnemonicParsing="false" text="Clostridium difficile" />
-                        <CheckBox fx:id="nMeningitidis" disable="true" layoutX="18.0" layoutY="465.0" mnemonicParsing="false" text="Neisseria meningitidis" />
-                        <RadioButton fx:id="AssignRdbtn" layoutX="275.0" layoutY="155.0" mnemonicParsing="false" onAction="#TypeListen" text="Assign">
+                        <RadioButton fx:id="AssignRdbtn" layoutX="275.0" layoutY="155.0" mnemonicParsing="false" onAction="#PatientListen" text="Assign">
                            <toggleGroup>
                               <ToggleGroup fx:id="patient" />
                            </toggleGroup>
@@ -183,10 +183,7 @@
                               <Font size="18.0" />
                            </font>
                         </RadioButton>
-                        <RadioButton fx:id="CreateRdbtn" layoutX="165.0" layoutY="155.0" mnemonicParsing="false" onAction="#TypeListen" text="Create">
-                           <toggleGroup>
-                              <ToggleGroup fx:id="patient" />
-                           </toggleGroup>
+                        <RadioButton fx:id="CreateRdbtn" layoutX="165.0" layoutY="155.0" mnemonicParsing="false" onAction="#PatientListen" text="Create" toggleGroup="$patient">
                            <font>
                               <Font size="18.0" />
                            </font>
