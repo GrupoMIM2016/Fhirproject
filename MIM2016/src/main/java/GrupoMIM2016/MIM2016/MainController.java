@@ -91,7 +91,6 @@ public class MainController implements Initializable {
 			mktr.setSampleType(BloodRdbtn.getText());
 		}
 		if (UrineRdbtn.isSelected()){
-			mktr.setSampleType(BloodRdbtn.getText());
 			mktr.setSampleType(UrineRdbtn.getText());
 		}
 	}
@@ -124,34 +123,70 @@ public class MainController implements Initializable {
 	
 	public void gramStainListen(ActionEvent event) {
 		mktr.setgramStain(GramST.getValue());
-		if (GramST.getValue().equals("Gram Positive")){
+		if ((GramST.getValue().equals("Gram Positive")) && (Morpho.getValue().equals("Coccus"))){
 			pAeruginosa.setDisable(true);
 			nMeningitidis.setDisable(true);
 			eColi.setDisable(true);
 			sAureus.setDisable(false);
+			cDifficile.setDisable(true);}
+		if ((GramST.getValue().equals("Gram Positive")) && (Morpho.getValue().equals("Baccillus (Rod)"))){
+			pAeruginosa.setDisable(true);
+			nMeningitidis.setDisable(true);
+			eColi.setDisable(true);
+			sAureus.setDisable(true);
 			cDifficile.setDisable(false);}
-		if (GramST.getValue().equals("Gram Negative")){
-			pAeruginosa.setDisable(false);
+		if ((GramST.getValue().equals("Gram Negative")) && (Morpho.getValue().equals("Coccus"))){
+			pAeruginosa.setDisable(true);
 			nMeningitidis.setDisable(false);
+			eColi.setDisable(true);
+			sAureus.setDisable(true);
+			cDifficile.setDisable(true);}
+		if ((GramST.getValue().equals("Gram Negative")) && (Morpho.getValue().equals("Baccillus (Rod)"))){
+			pAeruginosa.setDisable(false);
+			nMeningitidis.setDisable(true);
 			eColi.setDisable(false);
 			sAureus.setDisable(true);
 			cDifficile.setDisable(true);}
-	}
+		else{
+			pAeruginosa.setDisable(true);
+			nMeningitidis.setDisable(true);
+			eColi.setDisable(true);
+			sAureus.setDisable(true);
+			cDifficile.setDisable(true);}
+		}
 	public void morphoListen(ActionEvent event) {
 		mktr.setmorpho(Morpho.getValue());
-		if (GramST.getValue().equals("Coccus")){
+		if ((GramST.getValue().equals("Gram Positive")) && (Morpho.getValue().equals("Coccus"))){
 			pAeruginosa.setDisable(true);
-			cDifficile.setDisable(true);
+			nMeningitidis.setDisable(true);
 			eColi.setDisable(true);
 			sAureus.setDisable(false);
-			nMeningitidis.setDisable(false);}
-		if (GramST.getValue().equals("Baccillus (Rod)")){
-			sAureus.setDisable(true);
+			cDifficile.setDisable(true);}
+		if ((GramST.getValue().equals("Gram Positive")) && (Morpho.getValue().equals("Baccillus (Rod)"))){
+			pAeruginosa.setDisable(true);
 			nMeningitidis.setDisable(true);
+			eColi.setDisable(true);
+			sAureus.setDisable(true);
+			cDifficile.setDisable(false);}
+		if ((GramST.getValue().equals("Gram Negative")) && (Morpho.getValue().equals("Coccus"))){
+			pAeruginosa.setDisable(true);
+			nMeningitidis.setDisable(false);
+			eColi.setDisable(true);
+			sAureus.setDisable(true);
+			cDifficile.setDisable(true);}
+		if ((GramST.getValue().equals("Gram Negative")) && (Morpho.getValue().equals("Baccillus (Rod)"))){
 			pAeruginosa.setDisable(false);
-			cDifficile.setDisable(false);
-			eColi.setDisable(false);}
-	}
+			nMeningitidis.setDisable(true);
+			eColi.setDisable(false);
+			sAureus.setDisable(true);
+			cDifficile.setDisable(true);}
+		else{
+			pAeruginosa.setDisable(true);
+			nMeningitidis.setDisable(true);
+			eColi.setDisable(true);
+			sAureus.setDisable(true);
+			cDifficile.setDisable(true);}
+		}
 		
 	//Obtener valores de tipo de Id y Date
 	public void IdListen(ActionEvent event) {

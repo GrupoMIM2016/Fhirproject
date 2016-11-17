@@ -168,9 +168,9 @@ public class MakingTransaction {
   	FhirContext ctxDstu2 = FhirContext.forDstu2();
   	
   	//Create a Client
-//  	String serverBaseUrl = "http://fhirtest.uhn.ca/baseDstu2";
+  	String serverBaseUrl = "http://fhirtest.uhn.ca/baseDstu2";
 //  	String serverBaseUrl = "http://172.31.5.42:8080/baseDstu2";
-  	String serverBaseUrl = "http://172.31.4.81:8080/baseDstu2";
+//  	String serverBaseUrl = "http://172.31.4.81:8080/baseDstu2";
   	IGenericClient client = ctxDstu2.newRestfulGenericClient(serverBaseUrl);
   	
   	//Log requests and responses
